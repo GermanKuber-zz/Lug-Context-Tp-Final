@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grvDocentes = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnAccion = new System.Windows.Forms.Button();
             this.txtProfesion = new System.Windows.Forms.TextBox();
@@ -45,13 +45,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.grvDocentes);
             this.groupBox1.Location = new System.Drawing.Point(23, 265);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(776, 257);
@@ -59,15 +59,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Docentes";
             // 
-            // dataGridView1
+            // grvDocentes
             // 
-            this.dataGridView1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
-            this.dataGridView1.AllowDrop = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 238);
-            this.dataGridView1.TabIndex = 0;
+            this.grvDocentes.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
+            this.grvDocentes.AllowDrop = true;
+            this.grvDocentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grvDocentes.Location = new System.Drawing.Point(0, 19);
+            this.grvDocentes.Name = "grvDocentes";
+            this.grvDocentes.Size = new System.Drawing.Size(776, 238);
+            this.grvDocentes.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -220,7 +220,7 @@
             this.Text = "Docentes";
             this.Load += new System.EventHandler(this.Docentes_Load);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -230,7 +230,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView grvDocentes;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnAccion;
         private System.Windows.Forms.TextBox txtProfesion;

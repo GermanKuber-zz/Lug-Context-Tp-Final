@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ConsoleApp9.Trackeable;
+using LugTp.Entities.Trackeable;
 
-namespace ConsoleApp9
+namespace LugTp.Entities
 {
     public class CollectionBase<TEntity> : IEnumerable<TEntity>
     {

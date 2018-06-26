@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp9.Trackeable
+﻿namespace LugTp.Entities.Trackeable
 {
     public interface ITrackeable<TEntity>
     {

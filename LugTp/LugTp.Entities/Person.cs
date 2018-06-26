@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LugTp.UI.Entities
+namespace LugTp.Entities
 {
     public class Persona
     {

@@ -1,7 +1,6 @@
 ﻿using System;
-using ConsoleApp9;
 
-namespace LugTp.UI.Entities
+namespace LugTp.Entities
 {
     public class Curso : ICloneable
     {

@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextLug.cs" />
     <Compile Include="Docentes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +88,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LugTp.Data\LugTp.Data.csproj">
+      <Project>{C14B2745-BFA1-4B87-BC96-F077B7A14F58}</Project>
+      <Name>LugTp.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LugTp.Entities\LugTp.Entities.csproj">
       <Project>{C83DA83C-DD2A-4642-BF06-E76DBFE55893}</Project>
       <Name>LugTp.Entities</Name>

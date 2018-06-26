@@ -1,6 +1,4 @@
-﻿using ConsoleApp9.Trackeable;
-
-namespace ConsoleApp9
+﻿namespace LugTp.Entities.Trackeable
 {
     public class DeletedTrackeable<TEntity> : BaseTrackeable<TEntity>
     {
