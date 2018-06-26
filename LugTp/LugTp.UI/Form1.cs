@@ -34,5 +34,14 @@ namespace LugTp.UI
             docentesForm.MaximizeBox = false;
             docentesForm.Show();
         }
+
+        private void cursosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var docentesForm = new CursoForm();
+            docentesForm.MdiParent = this;
+            docentesForm.MinimizeBox = false;
+            docentesForm.MaximizeBox = false;
+            docentesForm.Show();
+        }
     }
 }

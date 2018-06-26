@@ -1,22 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LugTp.Entities
 {
-    public class Curso : ICloneable
+    public class Curso 
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
         public int Duracion { get; set; }
         public Docente Docente { get; set; }
-        public string Telefono { get; set; }
         public CollectionBase<Unidad> Unidades { get; set; }
-        public CollectionBase<Alumno> Alumnos { get; set; }
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+        public List<Alumno> Alumnos { get; private set; }  
+ 
 
-        public Curso(string nombre, int duracion, Docente docente, CollectionBase<Alumno> alumnos)
+        public Curso(string nombre, int duracion, Docente docente, List<Alumno> alumnos)
         {
             if (nombre == null)
                 throw new ArgumentNullException(nameof(nombre));
@@ -27,7 +24,12 @@ namespace LugTp.Entities
             Nombre = nombre;
             Duracion = duracion;
             Docente = docente;
-            Alumnos = alumnos;
+        }
+
+        public void AddAlumno(Alumno alumno)
+        {
+            Alumnos.Add(alumno);
+
         }
     }
 }

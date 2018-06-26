@@ -32,6 +32,7 @@
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.docentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alumnosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cursosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,8 @@
             // 
             this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.docentesToolStripMenuItem,
-            this.alumnosToolStripMenuItem});
+            this.alumnosToolStripMenuItem,
+            this.cursosToolStripMenuItem});
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.opcionesToolStripMenuItem.Text = "Opciones";
@@ -67,6 +69,13 @@
             this.alumnosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.alumnosToolStripMenuItem.Text = "Alumnos";
             this.alumnosToolStripMenuItem.Click += new System.EventHandler(this.alumnosToolStripMenuItem_Click);
+            // 
+            // cursosToolStripMenuItem
+            // 
+            this.cursosToolStripMenuItem.Name = "cursosToolStripMenuItem";
+            this.cursosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cursosToolStripMenuItem.Text = "Cursos";
+            this.cursosToolStripMenuItem.Click += new System.EventHandler(this.cursosToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -92,6 +101,7 @@
         private System.Windows.Forms.ToolStripMenuItem opcionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem docentesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alumnosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cursosToolStripMenuItem;
     }
 }
 

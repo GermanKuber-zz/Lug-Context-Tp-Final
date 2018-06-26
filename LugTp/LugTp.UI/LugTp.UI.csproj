@@ -51,6 +51,12 @@
     <Compile Include="AlumnosForm.Designer.cs">
       <DependentUpon>AlumnosForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CursoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CursoForm.Designer.cs">
+      <DependentUpon>CursoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Docentes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AlumnosForm.resx">
       <DependentUpon>AlumnosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CursoForm.resx">
+      <DependentUpon>CursoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Docentes.resx">
       <DependentUpon>Docentes.cs</DependentUpon>
