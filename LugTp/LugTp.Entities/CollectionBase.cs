@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LugTp.Entities.Trackeable;
@@ -7,13 +8,16 @@ namespace LugTp.Entities
 {
     public class CollectionBase<TEntity> : IEnumerable<TEntity>
     {
-        readonly List<ITrackeable<TEntity>> _entities;
+        private readonly Action<List<ITrackeable<TEntity>>> _getAll;
+        readonly List<ITrackeable<TEntity>> _entities = new List<ITrackeable<TEntity>>();
 
         public List<TEntity> Get() => _entities.Select(x => x.Current).ToList();
 
-    
-        public CollectionBase( List<TEntity> list)
+
+        public CollectionBase(List<TEntity> list, Action<List<ITrackeable<TEntity>>> getAll)
         {
+            _getAll = getAll;
+
             _entities = new List<ITrackeable<TEntity>>();
             list.ForEach(x => _entities.Add(new UnmodifiedTrackeable<TEntity>(x)));
         }
@@ -46,8 +50,19 @@ namespace LugTp.Entities
             }
         }
 
+        public List<TEntity> GetAll()
+        {
+            _getAll(_entities);
+            return _entities.Select(x => x.Current).ToList();
+        }
+
         public IEnumerator<TEntity> GetEnumerator() => _entities.Select(x => x.Current).ToList().GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public void Execute()
+        {
+            _entities.ForEach(x=> x.Execute());
+        }
     }
 }

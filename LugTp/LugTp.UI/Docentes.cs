@@ -10,7 +10,6 @@ namespace LugTp.UI
         public Docentes()
         {
             InitializeComponent();
-            LoadData();
         }
 
         private void btnAccion_Click(object sender, EventArgs e)
@@ -64,9 +63,8 @@ namespace LugTp.UI
 
         private void LoadData()
         {
-            grvDocentes.Rows.Clear();
-
-            var docentes = Form1.Context.Docentes;
+            grvDocentes.Rows.Clear(); 
+            var docentes = Form1.Context.Docentes.GetAll();
 
             docentes?.ToList().ForEach(docente =>
             {
@@ -77,8 +75,7 @@ namespace LugTp.UI
                     docente.Profesion,
                     docente.Telefono,
                     docente.Direccion);
-            });
-
+            }); 
         }
 
         private void Docentes_Load(object sender, EventArgs e)
@@ -110,6 +107,8 @@ namespace LugTp.UI
             grvDocentes.EditMode = DataGridViewEditMode.EditProgrammatically;
             grvDocentes.MultiSelect = false;
             grvDocentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            LoadData();
+
         }
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {

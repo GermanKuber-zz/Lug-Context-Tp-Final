@@ -3,5 +3,6 @@
     public interface ITrackeable<TEntity>
     {
         TEntity Current { get; }
+        void Execute();
     }
 }

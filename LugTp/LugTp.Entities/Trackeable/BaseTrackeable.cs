@@ -1,10 +1,14 @@
 ﻿namespace LugTp.Entities.Trackeable
 {
-    public class BaseTrackeable<TEntity> : ITrackeable<TEntity>
+    public abstract class BaseTrackeable<TEntity> : ITrackeable<TEntity>
     {
+        protected readonly ISqlExecute<TEntity> SqlExecute;
         public TEntity Current { get; protected set; }
-        public BaseTrackeable(TEntity entity)
+        public abstract void Execute();
+
+        public BaseTrackeable(TEntity entity, ISqlExecute<TEntity> sqlExecute)
         {
+            SqlExecute = sqlExecute;
             Current = entity;
         }
     }
