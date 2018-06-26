@@ -6,26 +6,52 @@ using LugTp.Entities.Trackeable;
 
 namespace LugTp.Entities
 {
+    public class SqlExecutions<TEntity>
+    {
+        public ISqlExecute<TEntity> Add { get; set; }
+        public ISqlExecute<TEntity> Delete { get; set; }
+        public ISqlExecute<TEntity> Update { get; set; }
+        public ISqlExecute<TEntity> Unmodified { get; set; }
+
+        public SqlExecutions(ISqlExecute<TEntity> add, ISqlExecute<TEntity> delete, ISqlExecute<TEntity> update, ISqlExecute<TEntity> unmodified)
+        {
+            if (add == null)
+                throw new ArgumentNullException(nameof(add));
+            if (delete == null)
+                throw new ArgumentNullException(nameof(delete));
+            if (update == null)
+                throw new ArgumentNullException(nameof(update));
+            if (unmodified == null)
+                throw new ArgumentNullException(nameof(unmodified));
+            Add = add;
+            Delete = delete;
+            Update = update;
+            Unmodified = unmodified;
+        }
+    }
+
     public class CollectionBase<TEntity> : IEnumerable<TEntity>
     {
+        private readonly SqlExecutions<TEntity> _sqlExecution;
         private readonly Action<List<ITrackeable<TEntity>>> _getAll;
         readonly List<ITrackeable<TEntity>> _entities = new List<ITrackeable<TEntity>>();
 
         public List<TEntity> Get() => _entities.Select(x => x.Current).ToList();
 
 
-        public CollectionBase(List<TEntity> list, Action<List<ITrackeable<TEntity>>> getAll)
+        public CollectionBase(List<TEntity> list, SqlExecutions<TEntity> sqlExecution, Action<List<ITrackeable<TEntity>>> getAll)
         {
+            _sqlExecution = sqlExecution;
             _getAll = getAll;
 
             _entities = new List<ITrackeable<TEntity>>();
-            list.ForEach(x => _entities.Add(new UnmodifiedTrackeable<TEntity>(x)));
+            list.ForEach(x => _entities.Add(new UnmodifiedTrackeable<TEntity>(x, _sqlExecution.Unmodified)));
         }
         public void Add(TEntity entity)
         {
             if (!_entities.Any(x => x.Current.Equals(entity)))
             {
-                var newEntity = new AddedTrackeable<TEntity>(entity);
+                var newEntity = new AddedTrackeable<TEntity>(entity, _sqlExecution.Add);
                 _entities.Add(newEntity);
             }
         }
@@ -34,7 +60,7 @@ namespace LugTp.Entities
             var result = _entities.FirstOrDefault(x => x.Current.Equals(entity));
             if (result != null)
             {
-                var deleted = new DeletedTrackeable<TEntity>(entity);
+                var deleted = new DeletedTrackeable<TEntity>(entity, _sqlExecution.Delete);
                 _entities.Remove(result);
                 _entities.Add(deleted);
             }
@@ -44,7 +70,7 @@ namespace LugTp.Entities
             var result = _entities.FirstOrDefault(x => x.Current.Equals(entity));
             if (result != null)
             {
-                var modified = new ModifiedTrackeable<TEntity>(entity);
+                var modified = new ModifiedTrackeable<TEntity>(entity, _sqlExecution.Update);
                 _entities.Remove(result);
                 _entities.Add(modified);
             }
@@ -60,9 +86,6 @@ namespace LugTp.Entities
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public void Execute()
-        {
-            _entities.ForEach(x=> x.Execute());
-        }
+        public void Execute() => _entities.ForEach(x => x.Execute());
     }
 }

@@ -49,8 +49,10 @@
     <Compile Include="Trackeable\AddedTrackeable.cs" />
     <Compile Include="Trackeable\BaseTrackeable.cs" />
     <Compile Include="Trackeable\DeletedTrackeable.cs" />
+    <Compile Include="Trackeable\ISqlExecute.cs" />
     <Compile Include="Trackeable\ITrackeable.cs" />
     <Compile Include="Trackeable\ModifiedTrackeable.cs" />
+    <Compile Include="Trackeable\UnmodifiedTrackeable.cs" />
     <Compile Include="Unidad.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

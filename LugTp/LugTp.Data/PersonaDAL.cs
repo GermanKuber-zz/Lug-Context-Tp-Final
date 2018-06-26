@@ -29,6 +29,20 @@ namespace LugTp.Data
             }
             return listOfDocentes;
         }
+        public int Insert(Docente docente)
+        {
+            DAO mDao = new DAO();
+            var commandText = "INSERT INTO Personas (Nombre, Apellido, Direccion, Telefono,Cargo,Profesion,Descriminator) VALUES" +
+                              "('" + docente.Nombre + "', " +
+                              "'" + docente.Apellido + "', " +
+                              "'" + docente.Direccion + "'," +
+                              "'" + docente.Telefono + "'," +
+                              "'" + docente.Cargo + "'," +
+                              "'" + docente.Profesion + "'," +
+                              " 'Docente')";
+
+            return mDao.ExecuteNonQuery(commandText);     
+        }
 
         //public static int Guardar(PersonaDTO pPersona)
         //{

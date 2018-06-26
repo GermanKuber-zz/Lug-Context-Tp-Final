@@ -2,8 +2,10 @@
 {
     public class DeletedTrackeable<TEntity> : BaseTrackeable<TEntity>
     {
-        public DeletedTrackeable(TEntity entity) : base(entity)
+        public DeletedTrackeable(TEntity entity, ISqlExecute<TEntity> sqlExecute) : base(entity, sqlExecute)
         {
         }
+
+     
     }
 }

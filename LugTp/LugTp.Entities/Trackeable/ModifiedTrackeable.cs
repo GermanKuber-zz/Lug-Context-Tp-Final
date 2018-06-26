@@ -2,15 +2,10 @@
 {
     public class ModifiedTrackeable<TEntity> : BaseTrackeable<TEntity>
     {
-        public ModifiedTrackeable(TEntity entity) : base(entity)
+        public ModifiedTrackeable(TEntity entity, ISqlExecute<TEntity> sqlExecute) : base(entity, sqlExecute)
         {
         }
-    }
 
-    public class UnmodifiedTrackeable<TEntity> : BaseTrackeable<TEntity>
-    {
-        public UnmodifiedTrackeable(TEntity entity) : base(entity)
-        {
-        }
+       
     }
 }

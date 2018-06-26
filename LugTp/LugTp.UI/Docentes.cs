@@ -18,7 +18,7 @@ namespace LugTp.UI
                                      txtApellido.Text,
                                      txtDireccion.Text,
                                      txtTelefono.Text,
-                                     cmbCargo.SelectedValue.ToString(),
+                                     cmbCargo.SelectedItem.ToString(),
                                      txtProfesion.Text);
 
             Form1.Context.Docentes.Add(docente);
