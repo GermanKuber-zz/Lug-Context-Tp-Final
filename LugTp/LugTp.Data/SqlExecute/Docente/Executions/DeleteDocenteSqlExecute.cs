@@ -1,4 +1,5 @@
-﻿using LugTp.Entities.Trackeable;
+﻿using LugTp.Data.Dal;
+using LugTp.Entities.Trackeable;
 
 namespace LugTp.Data.SqlExecute.Docente.Executions
 {
@@ -6,7 +7,7 @@ namespace LugTp.Data.SqlExecute.Docente.Executions
     {
         public void Execute(Entities.Docente entity)
         {
-            var docenteDal = new DocenteDal();
+            var docenteDal = new DocentesDal();
             docenteDal.Delete(entity);
         }
     }

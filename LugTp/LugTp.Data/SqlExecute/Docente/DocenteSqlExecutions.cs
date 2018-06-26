@@ -8,7 +8,7 @@ namespace LugTp.Data.SqlExecute.Docente
         public DocenteSqlExecutions() : base(new InsertDocenteSqlExecute(),
             new DeleteDocenteSqlExecute(), 
             new UpdateDocenteSqlExecute(),
-            new NothingSqlExecute())
+            new NothingSqlExecute<Entities.Docente>())
         {
         }
     }

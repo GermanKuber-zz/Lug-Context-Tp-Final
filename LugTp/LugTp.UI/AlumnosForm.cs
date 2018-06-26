@@ -5,23 +5,23 @@ using LugTp.Entities;
 
 namespace LugTp.UI
 {
-    public partial class Docentes : Form
+    public partial class AlumnosForm : Form
     {
-        public Docentes()
+        public AlumnosForm()
         {
             InitializeComponent();
         }
 
         private void btnAccion_Click(object sender, EventArgs e)
         {
-            var docente = new Docente(txtNombre.Text,
+            var alumno = new Alumno(txtNombre.Text,
                                      txtApellido.Text,
                                      txtDireccion.Text,
                                      txtTelefono.Text,
-                                     cmbCargo.SelectedItem.ToString(),
-                                     txtProfesion.Text);
+                                     txtLegajo.Text,
+                                     chbAlDia.Checked);
 
-            Form1.Context.Docentes.Add(docente);
+            Form1.Context.Alumnos.Add(alumno);
             Form1.Context.SaveChange();
             CleanWindow();
             LoadData();
@@ -39,9 +39,7 @@ namespace LugTp.UI
                 ||
                 string.IsNullOrWhiteSpace(txtTelefono.Text)
                 ||
-                string.IsNullOrWhiteSpace(cmbCargo.SelectedItem.ToString())
-                ||
-                string.IsNullOrWhiteSpace(txtProfesion.Text))
+                string.IsNullOrWhiteSpace(txtLegajo.Text))
             {
                 btnAccion.Enabled = false;
             }
@@ -57,30 +55,29 @@ namespace LugTp.UI
             txtApellido.Text = string.Empty;
             txtDireccion.Text = string.Empty;
             txtTelefono.Text = string.Empty;
-            cmbCargo.SelectedIndex = 0;
-            txtProfesion.Text = string.Empty;
+            chbAlDia.Checked = false;
+            txtLegajo.Text = string.Empty;
         }
 
         private void LoadData()
         {
             grvDocentes.Rows.Clear();
-            var docentes = Form1.Context.Docentes.GetAll();
+            var alumnos = Form1.Context.Alumnos.GetAll();
 
-            docentes?.ToList().ForEach(docente =>
+            alumnos?.ToList().ForEach(alumno =>
             {
-                grvDocentes.Rows.Add(docente.Id,
-                    docente.Nombre,
-                    docente.Apellido,
-                    docente.Cargo,
-                    docente.Profesion,
-                    docente.Telefono,
-                    docente.Direccion);
+                grvDocentes.Rows.Add(alumno.Id,
+                    alumno.Nombre,
+                    alumno.Apellido,
+                    alumno.Legajo,
+                    alumno.CuotaAlDia,
+                    alumno.Telefono,
+                    alumno.Direccion);
             });
         }
 
-        private void Docentes_Load(object sender, EventArgs e)
+        private void AlumnosForm_Load(object sender, EventArgs e)
         {
-            cmbCargo.SelectedIndex = 0;
             grvDocentes.Columns.Add("Id", "Id");
             grvDocentes.Columns.Add("Nombre", "Nombre");
             grvDocentes.Columns["Nombre"].Width = 100;
@@ -88,11 +85,11 @@ namespace LugTp.UI
             grvDocentes.Columns.Add("Apellido", "Apellido");
             grvDocentes.Columns["Apellido"].Width = 100;
 
-            grvDocentes.Columns.Add("Cargo", "Cargo");
-            grvDocentes.Columns["Cargo"].Width = 100;
+            grvDocentes.Columns.Add("Legajo", "Legajo");
+            grvDocentes.Columns["Legajo"].Width = 100;
 
-            grvDocentes.Columns.Add("Profesion", "Profesion");
-            grvDocentes.Columns["Profesion"].Width = 100;
+            grvDocentes.Columns.Add("CuotaAlDia", "CuotaAlDia");
+            grvDocentes.Columns["CuotaAlDia"].Width = 100;
 
             grvDocentes.Columns.Add("Telefono", "Telefono");
             grvDocentes.Columns["Telefono"].Width = 100;
@@ -107,7 +104,7 @@ namespace LugTp.UI
             grvDocentes.MultiSelect = false;
             grvDocentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            
+
             LoadData();
             if (grvDocentes.Rows.Count > 0)
                 grvDocentes.Rows[0].Selected = true;
@@ -135,7 +132,7 @@ namespace LugTp.UI
             CheckCompleteForm();
         }
 
-        private void txtProfesion_TextChanged(object sender, EventArgs e)
+        private void txtLegajo_TextChanged(object sender, EventArgs e)
         {
 
             CheckCompleteForm();
@@ -144,13 +141,13 @@ namespace LugTp.UI
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             var idToDelete = int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString());
-            var docenteToDelete = Form1.Context.Docentes.First(x => x.Id == idToDelete);
-            Form1.Context.Docentes.Delete(docenteToDelete);
+            var alumnoToDelete = Form1.Context.Alumnos.First(x => x.Id == idToDelete);
+            Form1.Context.Alumnos.Delete(alumnoToDelete);
             Form1.Context.SaveChange();
             LoadData();
         }
 
-    
+
 
         private void CheckBtnEnables()
         {
@@ -162,8 +159,8 @@ namespace LugTp.UI
                 txtApellido.Text = grvDocentes.SelectedRows[0].Cells["Apellido"].Value.ToString();
                 txtDireccion.Text = grvDocentes.SelectedRows[0].Cells["Direccion"].Value.ToString();
                 txtTelefono.Text = grvDocentes.SelectedRows[0].Cells["Telefono"].Value.ToString();
-                cmbCargo.SelectedItem = grvDocentes.SelectedRows[0].Cells["Cargo"].Value.ToString();
-                txtProfesion.Text = grvDocentes.SelectedRows[0].Cells["Profesion"].Value.ToString();
+                chbAlDia.Checked = bool.Parse(grvDocentes.SelectedRows[0].Cells["CuotaAlDia"].Value.ToString());
+                txtLegajo.Text = grvDocentes.SelectedRows[0].Cells["Legajo"].Value.ToString();
             }
             else
             {
@@ -177,24 +174,21 @@ namespace LugTp.UI
             CheckBtnEnables();
         }
 
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private void btnActualizar_Click_1(object sender, EventArgs e)
         {
             var idToDelete = int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString());
-            var docenteToUpdate = Form1.Context.Docentes.First(x => x.Id == idToDelete);
-            docenteToUpdate.Nombre = txtNombre.Text ;
-            docenteToUpdate.Apellido= txtApellido.Text ;
-            docenteToUpdate.Direccion = txtDireccion.Text ;
-            docenteToUpdate.Telefono = txtTelefono.Text ;
-            docenteToUpdate.Cargo = cmbCargo.SelectedItem.ToString() ;
-            docenteToUpdate.Profesion =  txtProfesion.Text ;
-            Form1.Context.Docentes.Update(docenteToUpdate);
+            var alumnoToUpdate = Form1.Context.Alumnos.First(x => x.Id == idToDelete);
+            alumnoToUpdate.Nombre = txtNombre.Text;
+            alumnoToUpdate.Apellido = txtApellido.Text;
+            alumnoToUpdate.Direccion = txtDireccion.Text;
+            alumnoToUpdate.Telefono = txtTelefono.Text;
+            alumnoToUpdate.CuotaAlDia = chbAlDia.Checked;
+            alumnoToUpdate.Legajo = txtLegajo.Text;
+            Form1.Context.Alumnos.Update(alumnoToUpdate);
             Form1.Context.SaveChange();
             LoadData();
         }
 
-        private void grvDocentes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
     }
 }

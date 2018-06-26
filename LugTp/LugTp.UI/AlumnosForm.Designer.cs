@@ -1,6 +1,6 @@
 ﻿namespace LugTp.UI
 {
-    partial class Docentes
+    partial class AlumnosForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,72 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.grvDocentes = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAccion = new System.Windows.Forms.Button();
-            this.txtProfesion = new System.Windows.Forms.TextBox();
+            this.txtLegajo = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmbCargo = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grvDocentes = new System.Windows.Forms.DataGridView();
+            this.chbAlDia = new System.Windows.Forms.CheckBox();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.grvDocentes);
-            this.groupBox1.Location = new System.Drawing.Point(23, 265);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 257);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Docentes";
-            // 
-            // grvDocentes
-            // 
-            this.grvDocentes.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
-            this.grvDocentes.AllowDrop = true;
-            this.grvDocentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvDocentes.Location = new System.Drawing.Point(0, 19);
-            this.grvDocentes.Name = "grvDocentes";
-            this.grvDocentes.Size = new System.Drawing.Size(776, 238);
-            this.grvDocentes.TabIndex = 0;
-            this.grvDocentes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvDocentes_CellContentClick);
-            this.grvDocentes.SelectionChanged += new System.EventHandler(this.grvDocentes_SelectionChanged);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chbAlDia);
             this.groupBox2.Controls.Add(this.btnActualizar);
             this.groupBox2.Controls.Add(this.btnEliminar);
             this.groupBox2.Controls.Add(this.btnAccion);
-            this.groupBox2.Controls.Add(this.txtProfesion);
+            this.groupBox2.Controls.Add(this.txtLegajo);
             this.groupBox2.Controls.Add(this.txtTelefono);
             this.groupBox2.Controls.Add(this.txtDireccion);
             this.groupBox2.Controls.Add(this.txtApellido);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.cmbCargo);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtNombre);
-            this.groupBox2.Location = new System.Drawing.Point(23, 27);
+            this.groupBox2.Location = new System.Drawing.Point(38, 32);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(448, 220);
-            this.groupBox2.TabIndex = 1;
+            this.groupBox2.Size = new System.Drawing.Size(448, 279);
+            this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modificar Docentes";
             // 
@@ -106,7 +84,7 @@
             this.btnActualizar.TabIndex = 14;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
             // 
             // btnEliminar
             // 
@@ -130,13 +108,13 @@
             this.btnAccion.UseVisualStyleBackColor = true;
             this.btnAccion.Click += new System.EventHandler(this.btnAccion_Click);
             // 
-            // txtProfesion
+            // txtLegajo
             // 
-            this.txtProfesion.Location = new System.Drawing.Point(111, 167);
-            this.txtProfesion.Name = "txtProfesion";
-            this.txtProfesion.Size = new System.Drawing.Size(121, 20);
-            this.txtProfesion.TabIndex = 11;
-            this.txtProfesion.TextChanged += new System.EventHandler(this.txtProfesion_TextChanged);
+            this.txtLegajo.Location = new System.Drawing.Point(111, 167);
+            this.txtLegajo.Name = "txtLegajo";
+            this.txtLegajo.Size = new System.Drawing.Size(121, 20);
+            this.txtLegajo.TabIndex = 11;
+            this.txtLegajo.TextChanged += new System.EventHandler(this.txtLegajo_TextChanged);
             // 
             // txtTelefono
             // 
@@ -167,22 +145,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(19, 170);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Profesión : ";
-            // 
-            // cmbCargo
-            // 
-            this.cmbCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCargo.FormattingEnabled = true;
-            this.cmbCargo.Items.AddRange(new object[] {
-            "Adjunto",
-            "Titular",
-            "Suplente"});
-            this.cmbCargo.Location = new System.Drawing.Point(111, 142);
-            this.cmbCargo.Name = "cmbCargo";
-            this.cmbCargo.Size = new System.Drawing.Size(121, 21);
-            this.cmbCargo.TabIndex = 6;
+            this.label6.Text = "Legajo";
             // 
             // label5
             // 
@@ -191,7 +156,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Cargo :";
+            this.label5.Text = "Al Dia :";
             // 
             // label4
             // 
@@ -237,43 +202,73 @@
             this.txtNombre.TabIndex = 0;
             this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
-            // Docentes
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.grvDocentes);
+            this.groupBox1.Location = new System.Drawing.Point(38, 317);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(776, 257);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Docentes";
+            // 
+            // grvDocentes
+            // 
+            this.grvDocentes.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
+            this.grvDocentes.AllowDrop = true;
+            this.grvDocentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grvDocentes.Location = new System.Drawing.Point(0, 19);
+            this.grvDocentes.Name = "grvDocentes";
+            this.grvDocentes.Size = new System.Drawing.Size(776, 238);
+            this.grvDocentes.TabIndex = 0;
+            this.grvDocentes.SelectionChanged += new System.EventHandler(this.grvDocentes_SelectionChanged);
+            // 
+            // chbAlDia
+            // 
+            this.chbAlDia.AutoSize = true;
+            this.chbAlDia.Location = new System.Drawing.Point(111, 144);
+            this.chbAlDia.Name = "chbAlDia";
+            this.chbAlDia.Size = new System.Drawing.Size(15, 14);
+            this.chbAlDia.TabIndex = 15;
+            this.chbAlDia.UseVisualStyleBackColor = true;
+            // 
+            // AlumnosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 554);
+            this.ClientSize = new System.Drawing.Size(1111, 586);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Docentes";
-            this.Text = "Docentes";
-            this.Load += new System.EventHandler(this.Docentes_Load);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).EndInit();
+            this.Name = "AlumnosForm";
+            this.Text = "AlumnosForm";
+            this.Load += new System.EventHandler(this.AlumnosForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView grvDocentes;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox chbAlDia;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnAccion;
-        private System.Windows.Forms.TextBox txtProfesion;
+        private System.Windows.Forms.TextBox txtLegajo;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cmbCargo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView grvDocentes;
     }
 }
