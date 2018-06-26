@@ -22,7 +22,7 @@ namespace LugTp.UI
                                      txtProfesion.Text);
 
             Form1.Context.Docentes.Add(docente);
-            Form1.Context.SaveChangeAsync();
+            Form1.Context.SaveChange();
             CleanWindow();
             LoadData();
         }
@@ -63,7 +63,7 @@ namespace LugTp.UI
 
         private void LoadData()
         {
-            grvDocentes.Rows.Clear(); 
+            grvDocentes.Rows.Clear();
             var docentes = Form1.Context.Docentes.GetAll();
 
             docentes?.ToList().ForEach(docente =>
@@ -75,14 +75,13 @@ namespace LugTp.UI
                     docente.Profesion,
                     docente.Telefono,
                     docente.Direccion);
-            }); 
+            });
         }
 
         private void Docentes_Load(object sender, EventArgs e)
         {
             cmbCargo.SelectedIndex = 0;
             grvDocentes.Columns.Add("Id", "Id");
-            grvDocentes.Columns["Id"].Visible = false;
             grvDocentes.Columns.Add("Nombre", "Nombre");
             grvDocentes.Columns["Nombre"].Width = 100;
 
@@ -99,16 +98,21 @@ namespace LugTp.UI
             grvDocentes.Columns["Telefono"].Width = 100;
 
             grvDocentes.Columns.Add("Direccion", "Direccion");
-            grvDocentes.Columns["Direccion"].Width = 100; 
-      
+            grvDocentes.Columns["Direccion"].Width = 100;
+
             grvDocentes.RowHeadersVisible = false;
             grvDocentes.AllowUserToAddRows = false;
             grvDocentes.AllowUserToDeleteRows = false;
             grvDocentes.EditMode = DataGridViewEditMode.EditProgrammatically;
             grvDocentes.MultiSelect = false;
             grvDocentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            LoadData();
 
+            
+            LoadData();
+            if (grvDocentes.Rows.Count > 0)
+                grvDocentes.Rows[0].Selected = true;
+
+            CheckBtnEnables();
         }
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
@@ -135,6 +139,57 @@ namespace LugTp.UI
         {
 
             CheckCompleteForm();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var idToDelete = int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString());
+            var docenteToDelete = Form1.Context.Docentes.First(x => x.Id == idToDelete);
+            Form1.Context.Docentes.Delete(docenteToDelete);
+            Form1.Context.SaveChange();
+            LoadData();
+        }
+
+    
+
+        private void CheckBtnEnables()
+        {
+            if (grvDocentes.SelectedRows.Count > 0)
+            {
+                btnEliminar.Enabled = true;
+                btnActualizar.Enabled = true;
+                txtNombre.Text = grvDocentes.SelectedRows[0].Cells["Nombre"].Value.ToString();
+                txtApellido.Text = grvDocentes.SelectedRows[0].Cells["Apellido"].Value.ToString();
+                txtDireccion.Text = grvDocentes.SelectedRows[0].Cells["Direccion"].Value.ToString();
+                txtTelefono.Text = grvDocentes.SelectedRows[0].Cells["Telefono"].Value.ToString();
+                cmbCargo.SelectedItem = grvDocentes.SelectedRows[0].Cells["Cargo"].Value.ToString();
+                txtProfesion.Text = grvDocentes.SelectedRows[0].Cells["Profesion"].Value.ToString();
+            }
+            else
+            {
+                btnEliminar.Enabled = false;
+                btnActualizar.Enabled = false;
+            }
+        }
+
+        private void grvDocentes_SelectionChanged(object sender, EventArgs e)
+        {
+            CheckBtnEnables();
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            var idToDelete = int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString());
+            var docenteToUpdate = Form1.Context.Docentes.First(x => x.Id == idToDelete);
+            docenteToUpdate.Nombre = txtNombre.Text ;
+            docenteToUpdate.Apellido= txtApellido.Text ;
+            docenteToUpdate.Direccion = txtDireccion.Text ;
+            docenteToUpdate.Telefono = txtTelefono.Text ;
+            docenteToUpdate.Cargo = cmbCargo.SelectedItem.ToString() ;
+            docenteToUpdate.Profesion =  txtProfesion.Text ;
+            Form1.Context.Docentes.Update(docenteToUpdate);
+            Form1.Context.SaveChange();
+            LoadData();
         }
     }
 }

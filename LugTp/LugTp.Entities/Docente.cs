@@ -10,5 +10,11 @@
             Cargo = cargo;
             Profesion = profesion;
         }
+        public Docente(int id, string nombre, string apellido, string direccion, string telefono, string cargo, string profesion) : base(nombre, apellido, direccion, telefono)
+        {
+            Id = id;
+            Cargo = cargo;
+            Profesion = profesion;
+        }
     }
 }

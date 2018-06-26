@@ -6,7 +6,8 @@ namespace LugTp.Data.SqlExecute.Docente.Executions
     {
         public void Execute(Entities.Docente entity)
         {
-            throw new System.NotImplementedException();
+            var docenteDal = new DocenteDal();
+            docenteDal.Delete(entity);
         }
     }
 }

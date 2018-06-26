@@ -33,13 +33,13 @@ namespace LugTp.Entities
     public class CollectionBase<TEntity> : IEnumerable<TEntity>
     {
         private readonly SqlExecutions<TEntity> _sqlExecution;
-        private readonly Action<List<ITrackeable<TEntity>>> _getAll;
-        readonly List<ITrackeable<TEntity>> _entities = new List<ITrackeable<TEntity>>();
+        private readonly Func<List<ITrackeable<TEntity>>> _getAll;
+        private List<ITrackeable<TEntity>> _entities = new List<ITrackeable<TEntity>>();
 
         public List<TEntity> Get() => _entities.Select(x => x.Current).ToList();
 
 
-        public CollectionBase(List<TEntity> list, SqlExecutions<TEntity> sqlExecution, Action<List<ITrackeable<TEntity>>> getAll)
+        public CollectionBase(List<TEntity> list, SqlExecutions<TEntity> sqlExecution, Func<List<ITrackeable<TEntity>>> getAll)
         {
             _sqlExecution = sqlExecution;
             _getAll = getAll;
@@ -78,7 +78,7 @@ namespace LugTp.Entities
 
         public List<TEntity> GetAll()
         {
-            _getAll(_entities);
+            _entities =  _getAll();
             return _entities.Select(x => x.Current).ToList();
         }
 

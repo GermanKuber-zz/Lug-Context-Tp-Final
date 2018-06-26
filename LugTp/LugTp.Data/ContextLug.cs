@@ -20,9 +20,9 @@ namespace LugTp.Data
                 if (_docentes == null)
                 {
                     _docentes = new CollectionBase<Docente>(docenteDal.GetAll(), new DocenteSqlExecutions(),
-                        list =>
+                        () =>
                    {
-                       list = new List<ITrackeable<Docente>>(docenteDal.GetAll()?
+                       return new List<ITrackeable<Docente>>(docenteDal.GetAll()?
                            .Select(x => new UnmodifiedTrackeable<Docente>(x, new NothingSqlExecute()))
                            .ToList());
                    });
@@ -33,9 +33,6 @@ namespace LugTp.Data
 
 
 
-        public void SaveChangeAsync()
-        {
-            Docentes.Execute();
-        }
+        public void SaveChange() => Docentes.Execute();
     }
 }
