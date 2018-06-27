@@ -37,10 +37,17 @@ namespace LugTp.Entities
         private List<ITrackeable<TEntity>> _entities = new List<ITrackeable<TEntity>>();
 
         public List<TEntity> Get() => _entities.Select(x => x.Current).ToList();
+        public CollectionBase(List<TEntity> list, SqlExecutions<TEntity> sqlExecution)
+        {
+            _sqlExecution = sqlExecution;
 
+            _entities = new List<ITrackeable<TEntity>>();
+            list.ForEach(x => _entities.Add(new UnmodifiedTrackeable<TEntity>(x, _sqlExecution.Unmodified)));
+        }
 
         public CollectionBase(List<TEntity> list, SqlExecutions<TEntity> sqlExecution, Func<List<ITrackeable<TEntity>>> getAll)
         {
+            //TODO: quietar el getall del consutrctor, dejar un solo consturctor
             _sqlExecution = sqlExecution;
             _getAll = getAll;
 
@@ -53,6 +60,15 @@ namespace LugTp.Entities
             {
                 var newEntity = new AddedTrackeable<TEntity>(entity, _sqlExecution.Add);
                 _entities.Add(newEntity);
+            }
+            else
+            {
+                var current = _entities.FirstOrDefault(x => x.Current.Equals(entity));
+                _entities.Remove(current);  
+                var newEntity = new AddedTrackeable<TEntity>(entity, _sqlExecution.Add);
+                _entities.Add(newEntity);
+
+
             }
         }
         public void Delete(TEntity entity)

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chbAlDia = new System.Windows.Forms.CheckBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAccion = new System.Windows.Forms.Button();
@@ -45,10 +46,12 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grvDocentes = new System.Windows.Forms.DataGridView();
-            this.chbAlDia = new System.Windows.Forms.CheckBox();
+            this.chkCursos = new System.Windows.Forms.CheckedListBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -74,6 +77,15 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modificar Docentes";
+            // 
+            // chbAlDia
+            // 
+            this.chbAlDia.AutoSize = true;
+            this.chbAlDia.Location = new System.Drawing.Point(111, 144);
+            this.chbAlDia.Name = "chbAlDia";
+            this.chbAlDia.Size = new System.Drawing.Size(15, 14);
+            this.chbAlDia.TabIndex = 15;
+            this.chbAlDia.UseVisualStyleBackColor = true;
             // 
             // btnActualizar
             // 
@@ -210,7 +222,7 @@
             this.groupBox1.Size = new System.Drawing.Size(776, 257);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Docentes";
+            this.groupBox1.Text = "Alumnos";
             // 
             // grvDocentes
             // 
@@ -223,20 +235,33 @@
             this.grvDocentes.TabIndex = 0;
             this.grvDocentes.SelectionChanged += new System.EventHandler(this.grvDocentes_SelectionChanged);
             // 
-            // chbAlDia
+            // chkCursos
             // 
-            this.chbAlDia.AutoSize = true;
-            this.chbAlDia.Location = new System.Drawing.Point(111, 144);
-            this.chbAlDia.Name = "chbAlDia";
-            this.chbAlDia.Size = new System.Drawing.Size(15, 14);
-            this.chbAlDia.TabIndex = 15;
-            this.chbAlDia.UseVisualStyleBackColor = true;
+            this.chkCursos.FormattingEnabled = true;
+            this.chkCursos.Location = new System.Drawing.Point(24, 19);
+            this.chkCursos.Name = "chkCursos";
+            this.chkCursos.ScrollAlwaysVisible = true;
+            this.chkCursos.Size = new System.Drawing.Size(330, 244);
+            this.chkCursos.TabIndex = 8;
+            this.chkCursos.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkCursos_ItemCheck);
+            this.chkCursos.SelectedIndexChanged += new System.EventHandler(this.chkCursos_SelectedIndexChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkCursos);
+            this.groupBox3.Location = new System.Drawing.Point(525, 32);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(372, 279);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Cursos";
             // 
             // AlumnosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1111, 586);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "AlumnosForm";
@@ -246,6 +271,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -270,5 +296,7 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView grvDocentes;
+        private System.Windows.Forms.CheckedListBox chkCursos;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

@@ -77,6 +77,11 @@ namespace LugTp.Data
         public void SaveChange()
         {
             Alumnos.Execute();
+            Alumnos.ToList()
+                   .ForEach(x=>
+                {
+                    x.Cursos.Execute();
+                });
             Docentes.Execute();
             Cursos.Execute();
         }

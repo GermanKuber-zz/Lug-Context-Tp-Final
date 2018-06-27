@@ -3,12 +3,18 @@ using LugTp.Entities.Trackeable;
 
 namespace LugTp.Data.SqlExecute.AlumnoCurso.Executions
 {
-    public class InsertAlumnoCursoSqlExecute : ISqlExecute<Entities.Alumno>
+    public class InsertAlumnoCursoSqlExecute : ISqlExecute<Entities.Curso>
     {
-        public void Execute(Entities.Alumno entity)
+        private readonly int _alumnoId;
+
+        public InsertAlumnoCursoSqlExecute(int alumnoId)
         {
-            var alumnoDal = new AlumnosDal();
-            alumnoDal.Insert(entity);
+            _alumnoId = alumnoId;
+        }
+        public void Execute(Entities.Curso entity)
+        {
+            var alumnoDal = new CursosDal();
+            alumnoDal.Insert(_alumnoId, entity);
         }
     }
 }

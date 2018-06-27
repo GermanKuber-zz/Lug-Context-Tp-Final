@@ -3,12 +3,18 @@ using LugTp.Entities.Trackeable;
 
 namespace LugTp.Data.SqlExecute.AlumnoCurso.Executions
 {
-    public class DeleteAlumnoCursoSqlExecute : ISqlExecute<Entities.Alumno>
+    public class DeleteAlumnoCursoSqlExecute : ISqlExecute<Entities.Curso>
     {
-        public void Execute(Entities.Alumno entity)
+        private readonly int _alumnoId;
+
+        public DeleteAlumnoCursoSqlExecute(int alumnoId)
         {
-            var alumnoDal = new AlumnosDal();
-            alumnoDal.Delete(entity);
+            _alumnoId = alumnoId;
+        }
+        public void Execute(Entities.Curso entity)
+        {
+            var alumnoDal = new CursosDal();
+            alumnoDal.Delete(_alumnoId, entity);
         }
     }
 }

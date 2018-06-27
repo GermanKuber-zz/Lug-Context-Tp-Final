@@ -31,8 +31,7 @@ namespace LugTp.UI
             _alumnos = Form1.Context.Alumnos.GetAll();
 
             _docentes?.ForEach(docente =>
-            {
-
+            {     
                 cmbDocente.Items.Add(Name = docente.Nombre);
             });
             cmbDocente.SelectedIndex = 0;
@@ -48,8 +47,8 @@ namespace LugTp.UI
             var alumnos = _alumnos.Where(x => chkAlumnos.CheckedItems.Contains(x.Nombre))?.ToList();
             var docente = _docentes.First(x => cmbDocente.SelectedItem.ToString().Contains(x.Nombre));
 
-            var alumnosBase = new CollectionBase<Alumno>(new List<Alumno>(), new AlumnoCursoSqlExecutions(), () => { return null; });
-            var curso = new Curso(txtNombre.Text, int.Parse(txtDuracion.Text), docente, alumnosBase);
+            var alumnosBase = new CollectionBase<Alumno>(new List<Alumno>(),null, () => { return null; });
+            var curso = new Curso(txtNombre.Text, int.Parse(txtDuracion.Text), docente);
             curso.Alumnos.Add(_alumnos.First());
             Form1.Context.Cursos.Add(curso);
             Form1.Context.SaveChange();

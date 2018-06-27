@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using LugTp.Entities;
@@ -7,6 +8,9 @@ namespace LugTp.UI
 {
     public partial class AlumnosForm : Form
     {
+        private List<Alumno> _alumnos;
+        private List<Curso> _cursos;
+
         public AlumnosForm()
         {
             InitializeComponent();
@@ -62,9 +66,9 @@ namespace LugTp.UI
         private void LoadData()
         {
             grvDocentes.Rows.Clear();
-            var alumnos = Form1.Context.Alumnos.GetAll();
+            _alumnos = Form1.Context.Alumnos.GetAll();
 
-            alumnos?.ToList().ForEach(alumno =>
+            _alumnos?.ToList().ForEach(alumno =>
             {
                 grvDocentes.Rows.Add(alumno.Id,
                     alumno.Nombre,
@@ -74,6 +78,9 @@ namespace LugTp.UI
                     alumno.Telefono,
                     alumno.Direccion);
             });
+
+            _cursos = Form1.Context.Cursos.GetAll();
+            _cursos?.ForEach(alumno => { chkCursos.Items.Add(Name = alumno.Nombre); });
         }
 
         private void AlumnosForm_Load(object sender, EventArgs e)
@@ -153,6 +160,8 @@ namespace LugTp.UI
         {
             if (grvDocentes.SelectedRows.Count > 0)
             {
+                _currentAlumno = _alumnos.FirstOrDefault(x =>
+                    x.Id == int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString()));
                 btnEliminar.Enabled = true;
                 btnActualizar.Enabled = true;
                 txtNombre.Text = grvDocentes.SelectedRows[0].Cells["Nombre"].Value.ToString();
@@ -161,6 +170,21 @@ namespace LugTp.UI
                 txtTelefono.Text = grvDocentes.SelectedRows[0].Cells["Telefono"].Value.ToString();
                 chbAlDia.Checked = bool.Parse(grvDocentes.SelectedRows[0].Cells["CuotaAlDia"].Value.ToString());
                 txtLegajo.Text = grvDocentes.SelectedRows[0].Cells["Legajo"].Value.ToString();
+                chkCursos.Items.Clear();
+                var index = 0;
+                _cursos?.ForEach(curso =>
+                {
+                    chkCursos.Items.Add(Name = curso.Nombre);
+
+                    if (_alumnos.FirstOrDefault(x => x.Id == int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString()))
+                        .Cursos
+                        .Any(x => x.Nombre == curso.Nombre))
+                    {
+                        chkCursos.SetItemChecked(index, true);
+                    }
+                    ++index;
+                });
+
             }
             else
             {
@@ -189,6 +213,26 @@ namespace LugTp.UI
             LoadData();
         }
 
+        private void chkCursos_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private List<Curso> _selectedCursos = new List<Curso>();
+        private Alumno _currentAlumno;
+
+        private void chkCursos_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            var selectedCursoName = ((CheckedListBox)sender).Text;
+            if (!string.IsNullOrWhiteSpace(selectedCursoName))
+                if (e.NewValue == CheckState.Checked)
+                    if (_currentAlumno.Cursos.Any(x => x.Nombre == selectedCursoName))
+                        _currentAlumno.Cursos.Add(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
+                    else
+                        _currentAlumno.Cursos.Add(_cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
+                else
+                    _currentAlumno.Cursos.Delete(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
+
+        }
     }
 }

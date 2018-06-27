@@ -22,7 +22,7 @@ namespace LugTp.Data.Dal
                     row["Direccion"].ToString(),
                     row["Telefono"].ToString(),
                     row["Cargo"].ToString(),
-                    row["Profesion"].ToString());
+                    row["Profesion"].ToString(),null);
                 listOfDocentes.Add(docente);
             }
             return listOfDocentes;
