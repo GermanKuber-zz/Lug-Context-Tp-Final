@@ -3,6 +3,7 @@ using System.Linq;
 using LugTp.Data.Dal;
 using LugTp.Data.SqlExecute;
 using LugTp.Data.SqlExecute.Alumno;
+using LugTp.Data.SqlExecute.Curso;
 using LugTp.Data.SqlExecute.Docente;
 using LugTp.Entities;
 using LugTp.Entities.Trackeable;
@@ -20,7 +21,7 @@ namespace LugTp.Data
                 var alumnosDal = new AlumnosDal();
                 if (_alumnos == null)
                 {
-                    _alumnos = new CollectionBase<Alumno>(alumnosDal.GetAll(), new AlumnoSqlExecutions(), 
+                    _alumnos = new CollectionBase<Alumno>(alumnosDal.GetAll(), new AlumnoSqlExecutions(),
                         () =>
                         {
                             return new List<ITrackeable<Alumno>>(alumnosDal.GetAll()?
@@ -32,8 +33,25 @@ namespace LugTp.Data
                 return _alumnos;
             }
         }
-
-        public CollectionBase<Curso> Cursos { get; }
+        private CollectionBase<Curso> _cursos;
+        public CollectionBase<Curso> Cursos
+        {
+            get
+            {
+                var cursoDal = new CursosDal();
+                if (_cursos == null)
+                {
+                    _cursos = new CollectionBase<Curso>(cursoDal.GetAll(), new CursoSqlExecutions(),
+                        () =>
+                        {
+                            return new List<ITrackeable<Curso>>(cursoDal.GetAll()?
+                                .Select(x => new UnmodifiedTrackeable<Curso>(x, new NothingSqlExecute<Curso>()))
+                                .ToList());
+                        });
+                }
+                return _cursos;
+            }
+        }
         private CollectionBase<Docente> _docentes;
         public CollectionBase<Docente> Docentes
         {
@@ -60,6 +78,7 @@ namespace LugTp.Data
         {
             Alumnos.Execute();
             Docentes.Execute();
+            Cursos.Execute();
         }
     }
 }

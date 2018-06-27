@@ -10,26 +10,24 @@ namespace LugTp.Entities
         public int Duracion { get; set; }
         public Docente Docente { get; set; }
         public CollectionBase<Unidad> Unidades { get; set; }
-        public List<Alumno> Alumnos { get; private set; }  
- 
+        public CollectionBase<Alumno> Alumnos { get; private set; }  
 
-        public Curso(string nombre, int duracion, Docente docente, List<Alumno> alumnos)
+        public Curso(string nombre, int duracion, Docente docente, CollectionBase<Alumno> alumnos)
         {
             if (nombre == null)
                 throw new ArgumentNullException(nameof(nombre));
             if (docente == null)
                 throw new ArgumentNullException(nameof(docente));
-            if (alumnos == null)
-                throw new ArgumentNullException(nameof(alumnos));
+
             Nombre = nombre;
             Duracion = duracion;
             Docente = docente;
+            Alumnos = alumnos;
         }
 
         public void AddAlumno(Alumno alumno)
         {
             Alumnos.Add(alumno);
-
         }
     }
 }

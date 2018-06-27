@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbDocente = new System.Windows.Forms.ComboBox();
+            this.chkAlumnos = new System.Windows.Forms.CheckedListBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAccion = new System.Windows.Forms.Button();
@@ -40,9 +42,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grvDocentes = new System.Windows.Forms.DataGridView();
-            this.chkAlumnos = new System.Windows.Forms.CheckedListBox();
             this.lstAlumnos = new System.Windows.Forms.ListView();
-            this.cmbDocente = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).BeginInit();
@@ -68,6 +68,25 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modificar Docentes";
             // 
+            // cmbDocente
+            // 
+            this.cmbDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDocente.FormattingEnabled = true;
+            this.cmbDocente.Location = new System.Drawing.Point(111, 178);
+            this.cmbDocente.Name = "cmbDocente";
+            this.cmbDocente.Size = new System.Drawing.Size(121, 21);
+            this.cmbDocente.TabIndex = 15;
+            // 
+            // chkAlumnos
+            // 
+            this.chkAlumnos.FormattingEnabled = true;
+            this.chkAlumnos.Location = new System.Drawing.Point(112, 87);
+            this.chkAlumnos.Name = "chkAlumnos";
+            this.chkAlumnos.ScrollAlwaysVisible = true;
+            this.chkAlumnos.Size = new System.Drawing.Size(120, 79);
+            this.chkAlumnos.TabIndex = 7;
+            this.chkAlumnos.SelectedIndexChanged += new System.EventHandler(this.chkAlumnos_SelectedIndexChanged);
+            // 
             // btnActualizar
             // 
             this.btnActualizar.Location = new System.Drawing.Point(367, 196);
@@ -90,7 +109,6 @@
             // 
             // btnAccion
             // 
-            this.btnAccion.Enabled = false;
             this.btnAccion.Location = new System.Drawing.Point(367, 225);
             this.btnAccion.Name = "btnAccion";
             this.btnAccion.Size = new System.Drawing.Size(75, 23);
@@ -171,16 +189,6 @@
             this.grvDocentes.Size = new System.Drawing.Size(776, 238);
             this.grvDocentes.TabIndex = 0;
             // 
-            // chkAlumnos
-            // 
-            this.chkAlumnos.FormattingEnabled = true;
-            this.chkAlumnos.Location = new System.Drawing.Point(112, 87);
-            this.chkAlumnos.Name = "chkAlumnos";
-            this.chkAlumnos.ScrollAlwaysVisible = true;
-            this.chkAlumnos.Size = new System.Drawing.Size(120, 79);
-            this.chkAlumnos.TabIndex = 7;
-            this.chkAlumnos.SelectedIndexChanged += new System.EventHandler(this.chkAlumnos_SelectedIndexChanged);
-            // 
             // lstAlumnos
             // 
             this.lstAlumnos.Location = new System.Drawing.Point(676, 128);
@@ -188,19 +196,6 @@
             this.lstAlumnos.Size = new System.Drawing.Size(121, 97);
             this.lstAlumnos.TabIndex = 6;
             this.lstAlumnos.UseCompatibleStateImageBehavior = false;
-            // 
-            // cmbDocente
-            // 
-            this.cmbDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDocente.FormattingEnabled = true;
-            this.cmbDocente.Items.AddRange(new object[] {
-            "Adjunto",
-            "Titular",
-            "Suplente"});
-            this.cmbDocente.Location = new System.Drawing.Point(111, 178);
-            this.cmbDocente.Name = "cmbDocente";
-            this.cmbDocente.Size = new System.Drawing.Size(121, 21);
-            this.cmbDocente.TabIndex = 15;
             // 
             // CursoForm
             // 
