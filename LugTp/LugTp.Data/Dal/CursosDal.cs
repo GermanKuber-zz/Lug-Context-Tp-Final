@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using LugTp.Data.Factories;
 using LugTp.Entities;
 
 namespace LugTp.Data.Dal
@@ -8,18 +9,27 @@ namespace LugTp.Data.Dal
     {
         public List<Curso> GetAll()
         {
-            var commandText = "SELECT * FROM Cursos";
+            var commandText = "SELECT C.Id as Curso_Id, c.Nombre as Curso_Nombre, c.Duracion, p.Id as Persona_Id, p.Nombre,p.Apellido, p.Direccion, p.Telefono, p.Cargo, p.Profesion FROM Cursos c INNER JOIN Personas p ON c.Docente_Id = p.Id";
             var dao = new DAO();
             var dataaSet = dao.ExecuteDataSet(commandText);
             var listOfDocentes = new List<Curso>();
 
+
             foreach (DataRow row in dataaSet?.Tables[0].Rows)
             {
 
-                var docente = new Curso(int.Parse(row["Id"].ToString()),
-                    row["Nombre"].ToString(),
+                var docente = new Curso(int.Parse(row["Curso_Id"].ToString()),
+                    row["Curso_Nombre"].ToString(),
                     int.Parse(row["Duracion"].ToString()),
-                    null);
+                    new Docente(int.Parse(row["Persona_Id"].ToString()),
+                        row["Nombre"].ToString(),
+                        row["Apellido"].ToString(),
+                        row["Direccion"].ToString(),
+                        row["Telefono"].ToString(),
+                        row["Cargo"].ToString(),
+                        row["Profesion"].ToString(),
+                        new List<Curso>(),
+                        new CollectionsDocentesFactory()));
                 listOfDocentes.Add(docente);
             }
             return listOfDocentes;
@@ -27,15 +37,8 @@ namespace LugTp.Data.Dal
         public int Insert(Curso curso)
         {
             DAO mDao = new DAO();
-            var commandText = "";
-            //var commandText = "INSERT INTO Personas (Nombre, Apellido, Direccion, Telefono,Cargo,Profesion,Descriminator) VALUES" +
-            //                  "('" + docente.Nombre + "', " +
-            //                  "'" + docente.Apellido + "', " +
-            //                  "'" + docente.Direccion + "'," +
-            //                  "'" + docente.Telefono + "'," +
-            //                  "'" + docente.Cargo + "'," +
-            //                  "'" + docente.Profesion + "'," +
-            //                  " 'Docente')";
+            var commandText =
+                $"INSERT INTO Cursos (Nombre, Duracion, Docente_Id) VALUES ('{curso.Nombre}','{curso.Duracion}','{curso.Docente.Id}')";
 
             return mDao.ExecuteNonQuery(commandText);
         }
@@ -43,14 +46,9 @@ namespace LugTp.Data.Dal
         public int Update(Curso curso)
         {
             DAO mDao = new DAO();
-            //var commandText = "UPDATE  Personas SET Nombre = '" + docente.Nombre + "'," +
-            //                  "Apellido = '" + docente.Apellido + "'," +
-            //                  "Direccion = '" + docente.Direccion + "'," +
-            //                  "Telefono = '" + docente.Telefono + "'," +
-            //                  "Cargo = '" + docente.Cargo + "'," +
-            //                  "Profesion = '" + docente.Profesion + "'" +
-            //                  "WHERE ID = '" + docente.Id + "'";
-            var commandText = "";
+            var commandText =
+                $"UPDATE  Cursos SET Nombre = '{curso.Nombre}', Duracion = {curso.Duracion}, Docente_Id = {curso.Docente.Id}";
+         
 
 
 

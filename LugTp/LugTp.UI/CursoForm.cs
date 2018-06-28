@@ -8,7 +8,6 @@ namespace LugTp.UI
 {
     public partial class CursoForm : Form
     {
-        private List<Alumno> _alumnos;
         private List<Docente> _docentes;
         private List<Curso> _cursos;
 
@@ -28,6 +27,9 @@ namespace LugTp.UI
 
             grvDocentes.Columns.Add("Docente", "Docente");
             grvDocentes.Columns["Docente"].Width = 100;
+            grvDocentes.Columns.Add("Docente_Id", "Docente_Id");
+            grvDocentes.Columns["Docente_Id"].Width = 100;
+            grvDocentes.Columns["Docente_Id"].Visible = false;
 
             grvDocentes.RowHeadersVisible = false;
             grvDocentes.AllowUserToAddRows = false;
@@ -59,11 +61,25 @@ namespace LugTp.UI
                 grvDocentes.Rows.Add(alumno.Id,
                     alumno.Nombre,
                     alumno.Duracion,
-                    alumno.Docente);
+                    alumno.Docente.Nombre,
+                    alumno.Docente.Id);
             });
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            var idToUpdate = int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString());
+            var cursoToUpdate = _cursos.FirstOrDefault(x => x.Id == idToUpdate);
+            cursoToUpdate.Nombre = txtNombre.Text;
+            cursoToUpdate.Duracion = int.Parse(txtDuracion.Text);
+
+            var newDocente = _docentes.FirstOrDefault(x =>
+                x.Nombre ==  cmbDocente.SelectedItem.ToString());
+            cursoToUpdate.Docente = newDocente;
+
+
+            Form1.Context.Cursos.Update(cursoToUpdate);
+            Form1.Context.SaveChange();
+            LoadData();
         }
 
         private void btnAccion_Click(object sender, EventArgs e)
@@ -73,9 +89,7 @@ namespace LugTp.UI
             var curso = new Curso(txtNombre.Text, int.Parse(txtDuracion.Text), docente);
             Form1.Context.Cursos.Add(curso);
             Form1.Context.SaveChange();
-            curso.Alumnos.Delete(_alumnos.First());
-            Form1.Context.SaveChange();
-
+            LoadData();
         }
         private void CheckCompleteForm()
         {
@@ -127,12 +141,23 @@ namespace LugTp.UI
                 txtDuracion.Text = grvDocentes.SelectedRows[0].Cells["Duracion"].Value.ToString();
                 var docente = grvDocentes.SelectedRows[0].Cells["Docente"].Value.ToString();
                 cmbDocente.SelectedItem = docente;
+                btnEliminar.Enabled = true;
+                btnActualizar.Enabled = true;
             }
             else
             {
                 btnEliminar.Enabled = false;
                 btnActualizar.Enabled = false;
             }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var cursoToDelete = _cursos.FirstOrDefault(x =>
+                x.Id == int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString()));
+            Form1.Context.Cursos.Delete(cursoToDelete);
+            Form1.Context.SaveChange();
+            LoadData();
         }
     }
 }

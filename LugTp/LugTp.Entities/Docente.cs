@@ -15,7 +15,13 @@ namespace LugTp.Entities
             Profesion = profesion;
             Cursos = collectionsDocentesFactory.CreateCursosEmpty(this);
         }
-        public Docente(int id, string nombre, string apellido, string direccion, string telefono, string cargo, string profesion,
+        public Docente(int id, 
+            string nombre,
+            string apellido,
+            string direccion,
+            string telefono,
+            string cargo, 
+            string profesion,
             List<Curso> cursos,
             ICollectionsDocentesFactory collectionsDocentesFactory) : base(
             nombre, apellido, direccion, telefono)
