@@ -12,6 +12,17 @@ namespace LugTp.Entities
             Legajo = legajo;
             CuotaAlDia = cuotaAlDia;
         }
+        public Alumno(string nombre, 
+            string apellido, 
+            string direccion,
+            string telefono,
+            string legajo,
+            bool cuotaAlDia,
+            CollectionBase<Curso> cursos) : base(nombre, apellido, direccion, telefono, cursos)
+        {
+            Legajo = legajo;
+            CuotaAlDia = cuotaAlDia;
+        }
         public Alumno(int id, string nombre,
             string apellido,
             string direccion,

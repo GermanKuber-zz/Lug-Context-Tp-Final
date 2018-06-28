@@ -30,19 +30,16 @@
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmbDocente = new System.Windows.Forms.ComboBox();
-            this.chkAlumnos = new System.Windows.Forms.CheckedListBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAccion = new System.Windows.Forms.Button();
             this.txtDuracion = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grvDocentes = new System.Windows.Forms.DataGridView();
-            this.lstAlumnos = new System.Windows.Forms.ListView();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).BeginInit();
@@ -51,13 +48,11 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.cmbDocente);
-            this.groupBox2.Controls.Add(this.chkAlumnos);
             this.groupBox2.Controls.Add(this.btnActualizar);
             this.groupBox2.Controls.Add(this.btnEliminar);
             this.groupBox2.Controls.Add(this.btnAccion);
             this.groupBox2.Controls.Add(this.txtDuracion);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtNombre);
@@ -72,24 +67,14 @@
             // 
             this.cmbDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDocente.FormattingEnabled = true;
-            this.cmbDocente.Location = new System.Drawing.Point(111, 178);
+            this.cmbDocente.Location = new System.Drawing.Point(111, 90);
             this.cmbDocente.Name = "cmbDocente";
             this.cmbDocente.Size = new System.Drawing.Size(121, 21);
             this.cmbDocente.TabIndex = 15;
             // 
-            // chkAlumnos
-            // 
-            this.chkAlumnos.FormattingEnabled = true;
-            this.chkAlumnos.Location = new System.Drawing.Point(112, 87);
-            this.chkAlumnos.Name = "chkAlumnos";
-            this.chkAlumnos.ScrollAlwaysVisible = true;
-            this.chkAlumnos.Size = new System.Drawing.Size(120, 79);
-            this.chkAlumnos.TabIndex = 7;
-            this.chkAlumnos.SelectedIndexChanged += new System.EventHandler(this.chkAlumnos_SelectedIndexChanged);
-            // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(367, 196);
+            this.btnActualizar.Location = new System.Drawing.Point(205, 125);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
             this.btnActualizar.TabIndex = 14;
@@ -100,7 +85,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Enabled = false;
-            this.btnEliminar.Location = new System.Drawing.Point(367, 168);
+            this.btnEliminar.Location = new System.Drawing.Point(286, 125);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 13;
@@ -109,7 +94,7 @@
             // 
             // btnAccion
             // 
-            this.btnAccion.Location = new System.Drawing.Point(367, 225);
+            this.btnAccion.Location = new System.Drawing.Point(367, 125);
             this.btnAccion.Name = "btnAccion";
             this.btnAccion.Size = new System.Drawing.Size(75, 23);
             this.btnAccion.TabIndex = 12;
@@ -128,20 +113,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 178);
+            this.label4.Location = new System.Drawing.Point(21, 90);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Docente";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Alumnos :";
             // 
             // label2
             // 
@@ -189,20 +165,11 @@
             this.grvDocentes.Size = new System.Drawing.Size(776, 238);
             this.grvDocentes.TabIndex = 0;
             // 
-            // lstAlumnos
-            // 
-            this.lstAlumnos.Location = new System.Drawing.Point(676, 128);
-            this.lstAlumnos.Name = "lstAlumnos";
-            this.lstAlumnos.Size = new System.Drawing.Size(121, 97);
-            this.lstAlumnos.TabIndex = 6;
-            this.lstAlumnos.UseCompatibleStateImageBehavior = false;
-            // 
             // CursoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1148, 612);
-            this.Controls.Add(this.lstAlumnos);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "CursoForm";
@@ -219,19 +186,16 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckedListBox chkAlumnos;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnAccion;
         private System.Windows.Forms.TextBox txtDuracion;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView grvDocentes;
-        private System.Windows.Forms.ListView lstAlumnos;
         private System.Windows.Forms.ComboBox cmbDocente;
     }
 }

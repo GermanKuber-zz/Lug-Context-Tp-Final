@@ -80,7 +80,7 @@ namespace LugTp.Data
             Alumnos.ToList()
                    .ForEach(x=>
                 {
-                    x.Cursos.Execute();
+                    x?.Cursos?.Execute();
                 });
             Docentes.Execute();
             Cursos.Execute();

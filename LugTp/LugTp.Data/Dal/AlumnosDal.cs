@@ -18,7 +18,7 @@ namespace LugTp.Data.Dal
 
             var rows = dataaSet?.Tables[0].Rows.Cast<DataRow>().ToList();
 
-            rows.GroupBy(x => x["Nombre"])
+            rows.GroupBy(x => x["Id"])
                 .Select(s => Tuple.Create(s.Key, s.ToList()))
                 .ToList()
                 .ForEach(row =>
@@ -63,9 +63,11 @@ namespace LugTp.Data.Dal
                               "'" + alumno.Telefono + "'," +
                               "'" + alumno.Legajo + "'," +
                               "'" + alumno.CuotaAlDia + "'," +
-                              " 'Alumno')";
+                              " 'Alumno');SELECT CAST(scope_identity() AS int)";
 
-            return mDao.ExecuteNonQuery(commandText);
+            var id =  mDao.ExecuteScalar(commandText);
+            alumno.Id = id;
+            return id;
         }
 
         public int Update(Alumno alumno)
@@ -80,7 +82,7 @@ namespace LugTp.Data.Dal
                               "WHERE ID = '" + alumno.Id + "'";
 
 
-            return mDao.ExecuteNonQuery(commandText);
+            return mDao.ExecuteScalar(commandText);
         }
         public int Delete(Alumno alumno)
         {

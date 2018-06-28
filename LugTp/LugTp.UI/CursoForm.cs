@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using LugTp.Data.SqlExecute.Alumno;
-using LugTp.Data.SqlExecute.AlumnoCurso;
 using LugTp.Entities;
 
 namespace LugTp.UI
@@ -35,7 +28,6 @@ namespace LugTp.UI
                 cmbDocente.Items.Add(Name = docente.Nombre);
             });
             cmbDocente.SelectedIndex = 0;
-            _alumnos?.ForEach(alumno => { chkAlumnos.Items.Add(Name = alumno.Nombre); });
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -44,12 +36,9 @@ namespace LugTp.UI
 
         private void btnAccion_Click(object sender, EventArgs e)
         {
-            var alumnos = _alumnos.Where(x => chkAlumnos.CheckedItems.Contains(x.Nombre))?.ToList();
             var docente = _docentes.First(x => cmbDocente.SelectedItem.ToString().Contains(x.Nombre));
 
-            var alumnosBase = new CollectionBase<Alumno>(new List<Alumno>(),null, () => { return null; });
             var curso = new Curso(txtNombre.Text, int.Parse(txtDuracion.Text), docente);
-            curso.Alumnos.Add(_alumnos.First());
             Form1.Context.Cursos.Add(curso);
             Form1.Context.SaveChange();
             curso.Alumnos.Delete(_alumnos.First());

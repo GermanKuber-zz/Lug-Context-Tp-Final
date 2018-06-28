@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using LugTp.Data.SqlExecute.AlumnoCurso;
 using LugTp.Entities;
 
 namespace LugTp.UI
@@ -18,17 +19,29 @@ namespace LugTp.UI
 
         private void btnAccion_Click(object sender, EventArgs e)
         {
+
+            var cursosToAdd = new List<Curso>();
+
+
             var alumno = new Alumno(txtNombre.Text,
-                                     txtApellido.Text,
-                                     txtDireccion.Text,
-                                     txtTelefono.Text,
-                                     txtLegajo.Text,
-                                     chbAlDia.Checked);
+                txtApellido.Text,
+                txtDireccion.Text,
+                txtTelefono.Text,
+                txtLegajo.Text,
+                chbAlDia.Checked);
 
             Form1.Context.Alumnos.Add(alumno);
+
+            Form1.Context.SaveChange();
+            foreach (var chkCursosItem in chkCursos.Items)
+            {
+                var cursoToAdd = _cursos.FirstOrDefault(x => x.Nombre == chkCursosItem);
+                alumno.Cursos.Add(cursoToAdd);
+            }
             Form1.Context.SaveChange();
             CleanWindow();
             LoadData();
+            CheckBtnEnables();
         }
 
 
@@ -78,7 +91,7 @@ namespace LugTp.UI
                     alumno.Telefono,
                     alumno.Direccion);
             });
-
+            chkCursos.Items.Clear();
             _cursos = Form1.Context.Cursos.GetAll();
             _cursos?.ForEach(alumno => { chkCursos.Items.Add(Name = alumno.Nombre); });
         }
@@ -224,7 +237,7 @@ namespace LugTp.UI
         private void chkCursos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             var selectedCursoName = ((CheckedListBox)sender).Text;
-            if (!string.IsNullOrWhiteSpace(selectedCursoName))
+            if (!string.IsNullOrWhiteSpace(selectedCursoName) && _currentAlumno != null)
                 if (e.NewValue == CheckState.Checked)
                     if (_currentAlumno.Cursos.Any(x => x.Nombre == selectedCursoName))
                         _currentAlumno.Cursos.Add(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));

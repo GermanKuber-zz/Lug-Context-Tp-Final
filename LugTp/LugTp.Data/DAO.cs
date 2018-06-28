@@ -52,6 +52,24 @@ namespace LugTp.Data
                     mCon.Close();
             }
         }
+        public int ExecuteScalar(string pCommandText)
+        {
+            try
+            {
+                SqlCommand mCom = new SqlCommand(pCommandText, mCon);
+                mCon.Open();
+                return (int)mCom.ExecuteScalar();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (mCon.State != ConnectionState.Closed)
+                    mCon.Close();
+            }
+        }
 
         public int ObtenerUltimoId(string pTabla)
         {
