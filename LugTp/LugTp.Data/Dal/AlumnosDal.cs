@@ -37,14 +37,16 @@ namespace LugTp.Data.Dal
                                     var curso = new Curso(int.Parse(x["Curso_Id"].ToString()),
                                         x["Curso_Nombre"].ToString(),
                                         int.Parse(x["Duracion"].ToString()),
-                                        null);
+                                        null,
+                                        new List<Unidad>(),
+                                        new CollectionsUnidadesFactory());
                                     listOfCursos.Add(curso);
                                 }
                                 catch (Exception e)
                                 {
                                     Console.WriteLine(e);
                                 }
-                               
+
                             }
                         });
 
@@ -73,7 +75,7 @@ namespace LugTp.Data.Dal
                               "'" + alumno.CuotaAlDia + "'," +
                               " 'Alumno');SELECT CAST(scope_identity() AS int)";
 
-            var id =  mDao.ExecuteScalar(commandText);
+            var id = mDao.ExecuteScalar(commandText);
             alumno.Id = id;
             return id;
         }

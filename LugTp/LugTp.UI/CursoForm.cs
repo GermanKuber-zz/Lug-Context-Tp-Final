@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using LugTp.Data.Factories;
 using LugTp.Entities;
 
 namespace LugTp.UI
@@ -10,6 +11,7 @@ namespace LugTp.UI
     {
         private List<Docente> _docentes;
         private List<Curso> _cursos;
+        private List<Unidad> _unidades;
 
         public CursoForm()
         {
@@ -55,15 +57,17 @@ namespace LugTp.UI
             grvDocentes.Rows.Clear();
 
             _cursos = Form1.Context.Cursos.GetAll();
-
+            _unidades = Form1.Context.Unidades.GetAll();
             _cursos?.ToList().ForEach(alumno =>
-            {
-                grvDocentes.Rows.Add(alumno.Id,
-                    alumno.Nombre,
-                    alumno.Duracion,
-                    alumno.Docente.Nombre,
-                    alumno.Docente.Id);
-            });
+                     {
+                         grvDocentes.Rows.Add(alumno.Id,
+                             alumno.Nombre,
+                             alumno.Duracion,
+                             alumno.Docente.Nombre,
+                             alumno.Docente.Id);
+                     });
+            chkCursos.Items.Clear();
+            _unidades.ForEach(x=> chkCursos.Items.Add(x.Tema));
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
@@ -73,7 +77,7 @@ namespace LugTp.UI
             cursoToUpdate.Duracion = int.Parse(txtDuracion.Text);
 
             var newDocente = _docentes.FirstOrDefault(x =>
-                x.Nombre ==  cmbDocente.SelectedItem.ToString());
+                x.Nombre == cmbDocente.SelectedItem.ToString());
             cursoToUpdate.Docente = newDocente;
 
 
@@ -86,7 +90,11 @@ namespace LugTp.UI
         {
             var docente = _docentes.First(x => cmbDocente.SelectedItem.ToString().Contains(x.Nombre));
 
-            var curso = new Curso(txtNombre.Text, int.Parse(txtDuracion.Text), docente);
+            var curso = new Curso(txtNombre.Text, 
+                int.Parse(txtDuracion.Text), 
+                docente,
+                new List<Unidad>(),
+                new CollectionsUnidadesFactory());
             Form1.Context.Cursos.Add(curso);
             Form1.Context.SaveChange();
             LoadData();
@@ -159,5 +167,6 @@ namespace LugTp.UI
             Form1.Context.SaveChange();
             LoadData();
         }
+     
     }
 }

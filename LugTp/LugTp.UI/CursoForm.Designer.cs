@@ -40,9 +40,12 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grvDocentes = new System.Windows.Forms.DataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkCursos = new System.Windows.Forms.CheckedListBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -151,7 +154,7 @@
             this.groupBox1.Controls.Add(this.grvDocentes);
             this.groupBox1.Location = new System.Drawing.Point(48, 315);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 257);
+            this.groupBox1.Size = new System.Drawing.Size(826, 257);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cursos";
@@ -167,11 +170,31 @@
             this.grvDocentes.TabIndex = 0;
             this.grvDocentes.SelectionChanged += new System.EventHandler(this.grvDocentes_SelectionChanged);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkCursos);
+            this.groupBox3.Location = new System.Drawing.Point(502, 30);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(372, 279);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Unidades";
+            // 
+            // chkCursos
+            // 
+            this.chkCursos.FormattingEnabled = true;
+            this.chkCursos.Location = new System.Drawing.Point(24, 19);
+            this.chkCursos.Name = "chkCursos";
+            this.chkCursos.ScrollAlwaysVisible = true;
+            this.chkCursos.Size = new System.Drawing.Size(330, 244);
+            this.chkCursos.TabIndex = 8;
+            // 
             // CursoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1148, 612);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "CursoForm";
@@ -181,6 +204,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grvDocentes)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -199,5 +223,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView grvDocentes;
         private System.Windows.Forms.ComboBox cmbDocente;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckedListBox chkCursos;
     }
 }

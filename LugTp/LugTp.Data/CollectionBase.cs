@@ -16,14 +16,14 @@ namespace LugTp.Data
 
         public SqlExecutions(ISqlExecute<TEntity> add, ISqlExecute<TEntity> delete, ISqlExecute<TEntity> update, ISqlExecute<TEntity> unmodified)
         {
-            if (add == null)
-                throw new ArgumentNullException(nameof(add));
-            if (delete == null)
-                throw new ArgumentNullException(nameof(delete));
-            if (update == null)
-                throw new ArgumentNullException(nameof(update));
-            if (unmodified == null)
-                throw new ArgumentNullException(nameof(unmodified));
+            //if (add == null)
+            //    throw new ArgumentNullException(nameof(add));
+            //if (delete == null)
+            //    throw new ArgumentNullException(nameof(delete));
+            //if (update == null)
+            //    throw new ArgumentNullException(nameof(update));
+            //if (unmodified == null)
+            //    throw new ArgumentNullException(nameof(unmodified));
             Add = add;
             Delete = delete;
             Update = update;

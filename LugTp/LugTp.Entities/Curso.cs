@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using LugTp.Data.Factories;
 
 namespace LugTp.Entities
 {
-    public class Curso 
+    public class Curso
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -10,7 +12,10 @@ namespace LugTp.Entities
         public Docente Docente { get; set; }
         public ICollectionBase<Unidad> Unidades { get; set; }
         public ICollectionBase<Alumno> Alumnos { get; private set; }
-        public Curso(int id, string nombre, int duracion, Docente docente)
+        public Curso(int id, string nombre, int duracion,
+            Docente docente,
+            List<Unidad> unidades,
+            ICollectionsUnidadesFactory collectionsUnidadesFactory)
         {
             if (nombre == null)
                 throw new ArgumentNullException(nameof(nombre));
@@ -21,9 +26,13 @@ namespace LugTp.Entities
             Nombre = nombre;
             Duracion = duracion;
             Docente = docente;
+            Unidades = collectionsUnidadesFactory.CreateUnidades(unidades);
 
         }
-        public Curso( string nombre, int duracion, Docente docente)
+        public Curso(string nombre,
+            int duracion,
+            Docente docente, List<Unidad> unidades,
+            ICollectionsUnidadesFactory collectionsUnidadesFactory)
         {
             if (nombre == null)
                 throw new ArgumentNullException(nameof(nombre));
@@ -33,9 +42,14 @@ namespace LugTp.Entities
             Nombre = nombre;
             Duracion = duracion;
             Docente = docente;
-
+            Unidades = collectionsUnidadesFactory.CreateUnidades(unidades);
         }
-        public Curso(int id,string nombre, int duracion, Docente docente, ICollectionBase<Alumno> alumnos)
+        public Curso(int id,
+            string nombre,
+            int duracion,
+            Docente docente,
+            ICollectionBase<Alumno> alumnos,
+            ICollectionBase<Unidad> unidades)
         {
             if (nombre == null)
                 throw new ArgumentNullException(nameof(nombre));
@@ -47,6 +61,7 @@ namespace LugTp.Entities
             Duracion = duracion;
             Docente = docente;
             Alumnos = alumnos;
+            Unidades = unidades;
         }
 
         public void AddAlumno(Alumno alumno)

@@ -210,10 +210,10 @@ namespace LugTp.UI
                 btnEliminar.Enabled = false;
                 btnActualizar.Enabled = false;
             }
-        }
-
+        }   
         private void grvDocentes_SelectionChanged(object sender, EventArgs e)
         {
+
             CheckBtnEnables();
         }
 

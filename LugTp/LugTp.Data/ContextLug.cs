@@ -62,13 +62,33 @@ namespace LugTp.Data
                 {
                     _docentes = new CollectionBase<Docente>(docenteDal.GetAll(), new DocenteSqlExecutions(),
                         () =>
-                   {
-                       return new List<ITrackeable<Docente>>(docenteDal.GetAll()?
-                           .Select(x => new UnmodifiedTrackeable<Docente>(x, new NothingSqlExecute<Docente>()))
-                           .ToList());
-                   });
+                        {
+                            return new List<ITrackeable<Docente>>(docenteDal.GetAll()?
+                                .Select(x => new UnmodifiedTrackeable<Docente>(x, new NothingSqlExecute<Docente>()))
+                                .ToList());
+                        });
                 }
                 return _docentes;
+            }
+        }
+                                               
+        private CollectionBase<Unidad> _unidades;
+        public CollectionBase<Unidad> Unidades
+        {
+            get
+            {
+                var unidadesDal = new UnidadesDal();
+                if (_unidades == null)
+                {
+                    _unidades = new CollectionBase<Unidad>(unidadesDal.GetAll(), new UnidadesSqlExecutions(),
+                        () =>
+                        {
+                            return new List<ITrackeable<Unidad>>(unidadesDal.GetAll()?
+                                .Select(x => new UnmodifiedTrackeable<Unidad>(x, new NothingSqlExecute<Unidad>()))
+                                .ToList());
+                        });
+                }
+                return _unidades;
             }
         }
 

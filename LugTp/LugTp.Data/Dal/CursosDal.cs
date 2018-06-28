@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using LugTp.Data.Factories;
 using LugTp.Entities;
+using static System.Tuple;
 
 namespace LugTp.Data.Dal
 {
@@ -9,30 +12,60 @@ namespace LugTp.Data.Dal
     {
         public List<Curso> GetAll()
         {
-            var commandText = "SELECT C.Id as Curso_Id, c.Nombre as Curso_Nombre, c.Duracion, p.Id as Persona_Id, p.Nombre,p.Apellido, p.Direccion, p.Telefono, p.Cargo, p.Profesion FROM Cursos c INNER JOIN Personas p ON c.Docente_Id = p.Id";
+            var commandText = "SELECT C.Id as Curso_Id, c.Nombre as Curso_Nombre, c.Duracion, p.Id as Persona_Id, p.Nombre,p.Apellido, p.Direccion, p.Telefono, p.Cargo, p.Profesion, u.Tema, u.Descripcion FROM Cursos c  LEFT JOIN  Personas p ON c.Docente_Id = p.Id LEFT JOIN  Unidades u ON u.Curso_Id= c.Id";
             var dao = new DAO();
             var dataaSet = dao.ExecuteDataSet(commandText);
-            var listOfDocentes = new List<Curso>();
+            var listOfCursos = new List<Curso>();
 
 
-            foreach (DataRow row in dataaSet?.Tables[0].Rows)
-            {
+            var rows = dataaSet?.Tables[0].Rows.Cast<DataRow>().ToList();
 
-                var docente = new Curso(int.Parse(row["Curso_Id"].ToString()),
-                    row["Curso_Nombre"].ToString(),
-                    int.Parse(row["Duracion"].ToString()),
-                    new Docente(int.Parse(row["Persona_Id"].ToString()),
-                        row["Nombre"].ToString(),
-                        row["Apellido"].ToString(),
-                        row["Direccion"].ToString(),
-                        row["Telefono"].ToString(),
-                        row["Cargo"].ToString(),
-                        row["Profesion"].ToString(),
-                        new List<Curso>(),
-                        new CollectionsDocentesFactory()));
-                listOfDocentes.Add(docente);
-            }
-            return listOfDocentes;
+            rows.GroupBy(x => x["Curso_Id"])
+                .Select(s => Create(s.Key, s.ToList()))
+                .ToList()
+                .ForEach(row =>
+                {
+
+                    var listOfUnidades = new List<Unidad>();
+                    row.Item2
+                        .ToList()
+                        .ForEach(x =>
+                        {
+                            if (!string.IsNullOrWhiteSpace(x["Curso_Id"].ToString()))
+                            {
+                                try
+                                {
+                                    var unidad = new Unidad(int.Parse(x["Curso_Id"].ToString()),
+                                        x["Tema"].ToString(),
+                                        x["Descripcion"].ToString());
+                                    listOfUnidades.Add(unidad);
+                                }
+                                catch (Exception e)
+                                {
+                                    throw;
+                                    Console.WriteLine(e);
+                                }
+
+                            }
+                        });
+
+                    var curso = new Curso(int.Parse(row.Item2.First()["Curso_Id"].ToString()),
+                        row.Item2.First()["Curso_Nombre"].ToString(),
+                        int.Parse(row.Item2.First()["Duracion"].ToString()),
+                        new Docente(int.Parse(row.Item2.First()["Persona_Id"].ToString()),
+                            row.Item2.First()["Nombre"].ToString(),
+                            row.Item2.First()["Apellido"].ToString(),
+                            row.Item2.First()["Direccion"].ToString(),
+                            row.Item2.First()["Telefono"].ToString(),
+                            row.Item2.First()["Cargo"].ToString(),
+                            row.Item2.First()["Profesion"].ToString(),
+                            new List<Curso>(),
+                            new CollectionsDocentesFactory()),
+                        listOfUnidades,
+                        new CollectionsUnidadesFactory());
+                    listOfCursos.Add(curso);
+                });
+            return listOfCursos;
         }
         public int Insert(Curso curso)
         {
@@ -48,7 +81,7 @@ namespace LugTp.Data.Dal
             DAO mDao = new DAO();
             var commandText =
                 $"UPDATE  Cursos SET Nombre = '{curso.Nombre}', Duracion = {curso.Duracion}, Docente_Id = {curso.Docente.Id}";
-         
+
 
 
 

@@ -44,13 +44,14 @@ namespace LugTp.Data
             }
             catch
             {
-                throw;
             }
             finally
             {
                 if (mCon.State != ConnectionState.Closed)
                     mCon.Close();
             }
+
+            return -1;
         }
         public int ExecuteScalar(string pCommandText)
         {
