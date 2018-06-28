@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using LugTp.Data.SqlExecute.AlumnoCurso;
+using LugTp.Data.Factories;
 using LugTp.Entities;
 
 namespace LugTp.UI
@@ -28,12 +28,16 @@ namespace LugTp.UI
                 txtDireccion.Text,
                 txtTelefono.Text,
                 txtLegajo.Text,
-                chbAlDia.Checked);
+                chbAlDia.Checked,
+                new CollectionsAlumnosFactory());
 
             Form1.Context.Alumnos.Add(alumno);
 
             Form1.Context.SaveChange();
-            foreach (var chkCursosItem in chkCursos.Items)
+
+            Form1.Context.Alumnos.GetAll();
+            alumno = Form1.Context.Alumnos.Last();
+            foreach (var chkCursosItem in chkCursos.CheckedItems)
             {
                 var cursoToAdd = _cursos.FirstOrDefault(x => x.Nombre == chkCursosItem);
                 alumno.Cursos.Add(cursoToAdd);
@@ -94,6 +98,8 @@ namespace LugTp.UI
             chkCursos.Items.Clear();
             _cursos = Form1.Context.Cursos.GetAll();
             _cursos?.ForEach(alumno => { chkCursos.Items.Add(Name = alumno.Nombre); });
+            CheckBtnEnables();
+
         }
 
         private void AlumnosForm_Load(object sender, EventArgs e)
@@ -236,15 +242,15 @@ namespace LugTp.UI
 
         private void chkCursos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            var selectedCursoName = ((CheckedListBox)sender).Text;
-            if (!string.IsNullOrWhiteSpace(selectedCursoName) && _currentAlumno != null)
-                if (e.NewValue == CheckState.Checked)
-                    if (_currentAlumno.Cursos.Any(x => x.Nombre == selectedCursoName))
-                        _currentAlumno.Cursos.Add(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
-                    else
-                        _currentAlumno.Cursos.Add(_cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
-                else
-                    _currentAlumno.Cursos.Delete(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
+            //var selectedCursoName = ((CheckedListBox)sender).Text;
+            //if (!string.IsNullOrWhiteSpace(selectedCursoName) && _currentAlumno != null)
+            //    if (e.NewValue == CheckState.Checked)
+            //        if (_currentAlumno.Cursos.Any(x => x.Nombre == selectedCursoName))
+            //            _currentAlumno.Cursos.Add(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
+            //        else
+            //            _currentAlumno.Cursos.Add(_cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
+            //    else
+            //        _currentAlumno.Cursos.Delete(_currentAlumno.Cursos.FirstOrDefault(x => x.Nombre == selectedCursoName));
 
         }
     }

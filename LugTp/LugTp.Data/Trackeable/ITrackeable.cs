@@ -1,8 +1,8 @@
-﻿namespace LugTp.Entities.Trackeable
+﻿namespace LugTp.Data.Trackeable
 {
     public interface ITrackeable<TEntity>
     {
         TEntity Current { get; }
-        void Execute();
+        ITrackeable<TEntity> Execute();
     }
 }

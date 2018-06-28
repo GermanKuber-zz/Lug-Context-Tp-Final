@@ -5,8 +5,8 @@ using LugTp.Data.SqlExecute;
 using LugTp.Data.SqlExecute.Alumno;
 using LugTp.Data.SqlExecute.Curso;
 using LugTp.Data.SqlExecute.Docente;
+using LugTp.Data.Trackeable;
 using LugTp.Entities;
-using LugTp.Entities.Trackeable;
 
 namespace LugTp.Data
 {

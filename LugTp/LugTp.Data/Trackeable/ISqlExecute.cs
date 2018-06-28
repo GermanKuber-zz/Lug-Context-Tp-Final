@@ -1,4 +1,4 @@
-﻿namespace LugTp.Entities.Trackeable
+﻿namespace LugTp.Data.Trackeable
 {
     public interface ISqlExecute<TEntity>
     {

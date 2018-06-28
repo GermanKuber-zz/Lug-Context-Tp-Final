@@ -1,5 +1,4 @@
 ﻿using LugTp.Data.SqlExecute.Alumno.Executions;
-using LugTp.Entities;
 
 namespace LugTp.Data.SqlExecute.Alumno
 {

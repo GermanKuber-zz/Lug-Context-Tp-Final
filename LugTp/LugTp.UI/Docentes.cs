@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using LugTp.Data.Factories;
 using LugTp.Entities;
 
 namespace LugTp.UI
@@ -19,7 +20,8 @@ namespace LugTp.UI
                                      txtDireccion.Text,
                                      txtTelefono.Text,
                                      cmbCargo.SelectedItem.ToString(),
-                                     txtProfesion.Text);
+                                     txtProfesion.Text,
+                                     new CollectionsDocentesFactory());
 
             Form1.Context.Docentes.Add(docente);
             Form1.Context.SaveChange();
@@ -107,7 +109,7 @@ namespace LugTp.UI
             grvDocentes.MultiSelect = false;
             grvDocentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            
+
             LoadData();
             if (grvDocentes.Rows.Count > 0)
                 grvDocentes.Rows[0].Selected = true;
@@ -150,7 +152,7 @@ namespace LugTp.UI
             LoadData();
         }
 
-    
+
 
         private void CheckBtnEnables()
         {
@@ -181,12 +183,12 @@ namespace LugTp.UI
         {
             var idToDelete = int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString());
             var docenteToUpdate = Form1.Context.Docentes.First(x => x.Id == idToDelete);
-            docenteToUpdate.Nombre = txtNombre.Text ;
-            docenteToUpdate.Apellido= txtApellido.Text ;
-            docenteToUpdate.Direccion = txtDireccion.Text ;
-            docenteToUpdate.Telefono = txtTelefono.Text ;
-            docenteToUpdate.Cargo = cmbCargo.SelectedItem.ToString() ;
-            docenteToUpdate.Profesion =  txtProfesion.Text ;
+            docenteToUpdate.Nombre = txtNombre.Text;
+            docenteToUpdate.Apellido = txtApellido.Text;
+            docenteToUpdate.Direccion = txtDireccion.Text;
+            docenteToUpdate.Telefono = txtTelefono.Text;
+            docenteToUpdate.Cargo = cmbCargo.SelectedItem.ToString();
+            docenteToUpdate.Profesion = txtProfesion.Text;
             Form1.Context.Docentes.Update(docenteToUpdate);
             Form1.Context.SaveChange();
             LoadData();

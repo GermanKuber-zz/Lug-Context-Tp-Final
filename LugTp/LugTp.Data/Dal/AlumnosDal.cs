@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using LugTp.Data.Factories;
 using LugTp.Data.SqlExecute.AlumnoCurso;
 using LugTp.Entities;
 
@@ -39,7 +40,6 @@ namespace LugTp.Data.Dal
                             }
                         });
 
-                    var cursosBase = new CollectionBase<Curso>(listOfCursos, new AlumnoCursoSqlExecutions(int.Parse(row.Item2.First()["Id"].ToString())));
                     var alumno = new Alumno(int.Parse(row.Item2.First()["Id"].ToString()),
                         row.Item2.First()["Nombre"].ToString(),
                         row.Item2.First()["Apellido"].ToString(),
@@ -47,7 +47,7 @@ namespace LugTp.Data.Dal
                         row.Item2.First()["Telefono"].ToString(),
                         row.Item2.First()["Legajo"].ToString(),
                         bool.Parse(row.Item2.First()["CuotaAlDia"].ToString()),
-                        cursosBase);
+                        listOfCursos, new CollectionsAlumnosFactory());
 
                     listOfAlumnos.Add(alumno);
                 });
@@ -82,7 +82,7 @@ namespace LugTp.Data.Dal
                               "WHERE ID = '" + alumno.Id + "'";
 
 
-            return mDao.ExecuteScalar(commandText);
+            return mDao.ExecuteNonQuery(commandText);
         }
         public int Delete(Alumno alumno)
         {

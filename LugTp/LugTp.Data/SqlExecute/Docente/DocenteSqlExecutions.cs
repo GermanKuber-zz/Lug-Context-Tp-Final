@@ -1,5 +1,4 @@
 ﻿using LugTp.Data.SqlExecute.Docente.Executions;
-using LugTp.Entities;
 
 namespace LugTp.Data.SqlExecute.Docente
 {

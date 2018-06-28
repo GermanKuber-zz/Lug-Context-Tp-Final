@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using LugTp.Data.Factories;
 using LugTp.Entities;
 
 namespace LugTp.Data.Dal
@@ -22,7 +23,9 @@ namespace LugTp.Data.Dal
                     row["Direccion"].ToString(),
                     row["Telefono"].ToString(),
                     row["Cargo"].ToString(),
-                    row["Profesion"].ToString(),null);
+                    row["Profesion"].ToString(),
+                    new List<Curso>(), 
+                    new CollectionsDocentesFactory() );
                 listOfDocentes.Add(docente);
             }
             return listOfDocentes;

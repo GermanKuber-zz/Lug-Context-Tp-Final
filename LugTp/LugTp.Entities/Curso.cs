@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace LugTp.Entities
 {
@@ -9,8 +8,8 @@ namespace LugTp.Entities
         public string Nombre { get; set; }
         public int Duracion { get; set; }
         public Docente Docente { get; set; }
-        public CollectionBase<Unidad> Unidades { get; set; }
-        public CollectionBase<Alumno> Alumnos { get; private set; }
+        public ICollectionBase<Unidad> Unidades { get; set; }
+        public ICollectionBase<Alumno> Alumnos { get; private set; }
         public Curso(int id, string nombre, int duracion, Docente docente)
         {
             if (nombre == null)
@@ -36,7 +35,7 @@ namespace LugTp.Entities
             Docente = docente;
 
         }
-        public Curso(int id,string nombre, int duracion, Docente docente, CollectionBase<Alumno> alumnos)
+        public Curso(int id,string nombre, int duracion, Docente docente, ICollectionBase<Alumno> alumnos)
         {
             if (nombre == null)
                 throw new ArgumentNullException(nameof(nombre));

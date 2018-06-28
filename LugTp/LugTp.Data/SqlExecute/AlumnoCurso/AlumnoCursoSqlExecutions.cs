@@ -1,13 +1,12 @@
 ﻿using LugTp.Data.SqlExecute.AlumnoCurso.Executions;
-using LugTp.Entities;
 
 namespace LugTp.Data.SqlExecute.AlumnoCurso
 {
     public class AlumnoCursoSqlExecutions : SqlExecutions<Entities.Curso>
     {
-        public AlumnoCursoSqlExecutions(int alumnoId) : base(new InsertAlumnoCursoSqlExecute(alumnoId),
-            new DeleteAlumnoCursoSqlExecute(alumnoId),
-            new UpdateAlumnoCursoSqlExecute(alumnoId),
+        public AlumnoCursoSqlExecutions(Entities.Alumno alumno) : base(new InsertAlumnoCursoSqlExecute(alumno),
+            new DeleteAlumnoCursoSqlExecute(alumno),
+            new UpdateAlumnoCursoSqlExecute(alumno),
             new NothingSqlExecute<Entities.Curso>())
         {
         }

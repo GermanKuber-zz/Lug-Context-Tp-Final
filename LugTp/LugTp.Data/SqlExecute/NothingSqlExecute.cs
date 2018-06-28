@@ -1,4 +1,4 @@
-﻿using LugTp.Entities.Trackeable;
+﻿using LugTp.Data.Trackeable;
 
 namespace LugTp.Data.SqlExecute
 {

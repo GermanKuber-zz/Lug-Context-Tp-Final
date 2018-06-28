@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LugTp.Entities.Trackeable;
+using LugTp.Data.Trackeable;
+using LugTp.Entities;
 
-namespace LugTp.Entities
+namespace LugTp.Data
 {
     public class SqlExecutions<TEntity>
     {
@@ -30,7 +31,7 @@ namespace LugTp.Entities
         }
     }
 
-    public class CollectionBase<TEntity> : IEnumerable<TEntity>
+    public class CollectionBase<TEntity> : ICollectionBase<TEntity>
     {
         private readonly SqlExecutions<TEntity> _sqlExecution;
         private readonly Func<List<ITrackeable<TEntity>>> _getAll;
@@ -64,7 +65,7 @@ namespace LugTp.Entities
             else
             {
                 var current = _entities.FirstOrDefault(x => x.Current.Equals(entity));
-                _entities.Remove(current);  
+                _entities.Remove(current);
                 var newEntity = new AddedTrackeable<TEntity>(entity, _sqlExecution.Add);
                 _entities.Add(newEntity);
 
@@ -94,7 +95,7 @@ namespace LugTp.Entities
 
         public List<TEntity> GetAll()
         {
-            _entities =  _getAll();
+            _entities = _getAll();
             return _entities.Select(x => x.Current).ToList();
         }
 
@@ -102,6 +103,9 @@ namespace LugTp.Entities
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public void Execute() => _entities.ForEach(x => x.Execute());
+        public void Execute()
+        {
+            _entities.ForEach(x => x = x.Execute());
+        }
     }
 }

@@ -1,15 +1,14 @@
-﻿using LugTp.Data.Dal;
-using LugTp.Entities.Trackeable;
+﻿using LugTp.Data.Trackeable;
 
 namespace LugTp.Data.SqlExecute.AlumnoCurso.Executions
 {
     public class UpdateAlumnoCursoSqlExecute : ISqlExecute<Entities.Curso>
     {
-        private readonly int _alumnoId;
+        private readonly Entities.Alumno _alumno;
 
-        public UpdateAlumnoCursoSqlExecute(int alumnoId)
+        public UpdateAlumnoCursoSqlExecute(Entities.Alumno alumno)
         {
-            _alumnoId = alumnoId;
+            _alumno = alumno;
         }
         public void Execute(Entities.Curso entity)
         {
