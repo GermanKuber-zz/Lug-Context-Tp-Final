@@ -227,6 +227,15 @@ namespace LugTp.UI
             alumnoToUpdate.Telefono = txtTelefono.Text;
             alumnoToUpdate.CuotaAlDia = chbAlDia.Checked;
             alumnoToUpdate.Legajo = txtLegajo.Text;
+
+            var toDelete = _currentAlumno.Cursos.Where(x => !chkCursos.CheckedItems.Contains(x.Nombre));
+            toDelete?.ToList()?.ForEach(x => alumnoToUpdate.Cursos.Delete(x));
+
+            var tmpList = _cursos.Where(x => chkCursos.CheckedItems.Contains(x.Nombre));
+
+            var toAdd = tmpList.Where(x => !_currentAlumno.Cursos.Any(s => x.Nombre == s.Nombre));
+            toAdd?.ToList()?.ForEach(x => alumnoToUpdate.Cursos.Add(x));
+
             Form1.Context.Alumnos.Update(alumnoToUpdate);
             Form1.Context.SaveChange();
             LoadData();
