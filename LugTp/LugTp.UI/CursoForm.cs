@@ -68,7 +68,7 @@ namespace LugTp.UI
                              alumno.Docente.Id);
                      });
             chkCursos.Items.Clear();
-            _unidades.ForEach(x=> chkCursos.Items.Add(x.Tema));
+            CheckBtnEnables();
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
@@ -81,7 +81,25 @@ namespace LugTp.UI
                 x.Nombre == cmbDocente.SelectedItem.ToString());
             cursoToUpdate.Docente = newDocente;
 
+            var toDelete = _currentCurso.Unidades.Where(x => !chkCursos.CheckedItems.Contains(x.Tema)
+            &&
+            _currentCurso.Unidades.Any(s=> chkCursos.CheckedItems.Contains(s.Tema)));
 
+            toDelete?.ToList()?.ForEach(x =>
+            {
+                x.Selected = false;
+                cursoToUpdate.Unidades.Update(x);
+            });
+            var toAdd = _currentCurso.Unidades.Where(x => !toDelete.Contains(x));
+            toAdd?.ToList()?.ForEach(x =>
+            {
+                x.Selected = true;
+                cursoToUpdate.Unidades.Update(x);
+            });
+            //var tmpList = _currentCurso.Unidades.Where(x => chkCursos.CheckedItems.Contains(x.Tema));
+
+            //var toAdd = tmpList.Where(x => !_currentCurso.Unidades.Any(s => x.Tema == s.Tema));
+            //toAdd?.ToList()?.ForEach(x => cursoToUpdate.Unidades.Add(x));
             Form1.Context.Cursos.Update(cursoToUpdate);
             Form1.Context.SaveChange();
             LoadData();
@@ -157,11 +175,11 @@ namespace LugTp.UI
                 btnActualizar.Enabled = true;
                 chkCursos.Items.Clear();
                 var index = 0;
-                _unidades?.ForEach(unidad =>
+                _currentCurso.Unidades.ToList()?.ForEach(unidad =>
                 {
                     chkCursos.Items.Add(Name = unidad.Tema);
 
-                    if (_currentCurso.Unidades.Any(x => x.Tema == unidad.Tema))
+                    if (_currentCurso.Unidades.Any(x => x.Tema == unidad.Tema && x.Selected))
                     {
                         chkCursos.SetItemChecked(index, true);
                     }

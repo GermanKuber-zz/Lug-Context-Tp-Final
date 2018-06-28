@@ -12,7 +12,7 @@ namespace LugTp.Data.Dal
     {
         public List<Curso> GetAll()
         {
-            var commandText = "SELECT C.Id as Curso_Id, c.Nombre as Curso_Nombre, c.Duracion, p.Id as Persona_Id, p.Nombre,p.Apellido, p.Direccion, p.Telefono, p.Cargo, p.Profesion, u.Tema, u.Descripcion FROM Cursos c  LEFT JOIN  Personas p ON c.Docente_Id = p.Id LEFT JOIN  Unidades u ON u.Curso_Id= c.Id";
+            var commandText = "SELECT C.Id as Curso_Id, c.Nombre as Curso_Nombre, u.Selected ,c.Duracion, p.Id as Persona_Id, p.Nombre,p.Apellido, p.Direccion, p.Telefono, p.Cargo, p.Profesion, u.Tema, u.id as Unida_Id, u.Descripcion FROM Cursos c  LEFT JOIN  Personas p ON c.Docente_Id = p.Id LEFT JOIN  Unidades u ON u.Curso_Id= c.Id";
             var dao = new DAO();
             var dataaSet = dao.ExecuteDataSet(commandText);
             var listOfCursos = new List<Curso>();
@@ -31,13 +31,14 @@ namespace LugTp.Data.Dal
                         .ToList()
                         .ForEach(x =>
                         {
-                            if (!string.IsNullOrWhiteSpace(x["Curso_Id"].ToString()))
+                            if (!string.IsNullOrWhiteSpace(x["Tema"].ToString()))
                             {
                                 try
                                 {
-                                    var unidad = new Unidad(int.Parse(x["Curso_Id"].ToString()),
+                                    var unidad = new Unidad(int.Parse(x["Unida_Id"].ToString()),
                                         x["Tema"].ToString(),
-                                        x["Descripcion"].ToString());
+                                        x["Descripcion"].ToString(),
+                                        bool.Parse(x["Selected"].ToString()));
                                     listOfUnidades.Add(unidad);
                                 }
                                 catch (Exception e)
@@ -80,7 +81,7 @@ namespace LugTp.Data.Dal
         {
             DAO mDao = new DAO();
             var commandText =
-                $"UPDATE  Cursos SET Nombre = '{curso.Nombre}', Duracion = {curso.Duracion}, Docente_Id = {curso.Docente.Id}";
+                $"UPDATE  Cursos SET Nombre = '{curso.Nombre}', Duracion = {curso.Duracion}, Docente_Id = {curso.Docente.Id} WHERE Id = {curso.Id}";
 
 
 

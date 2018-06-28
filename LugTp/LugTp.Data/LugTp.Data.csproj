@@ -52,6 +52,7 @@
     <Compile Include="Factories\CollectionsFactory.cs" />
     <Compile Include="Factories\CollectionsUnidadesFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlExecute\Unidades\Executions\UpdateUnidadesSqlExecute.cs" />
     <Compile Include="SqlExecute\AlumnoCurso\AlumnoCursoSqlExecutions.cs" />
     <Compile Include="SqlExecute\AlumnoCurso\Executions\DeleteAlumnoCursoSqlExecute.cs" />
     <Compile Include="SqlExecute\AlumnoCurso\Executions\InsertAlumnoCursoSqlExecute.cs" />

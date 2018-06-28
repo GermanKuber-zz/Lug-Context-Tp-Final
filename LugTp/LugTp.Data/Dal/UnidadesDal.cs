@@ -1,4 +1,5 @@
-﻿ using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using LugTp.Data.Factories;
 using LugTp.Entities;
@@ -19,11 +20,22 @@ namespace LugTp.Data.Dal
 
                 var docente = new Unidad(int.Parse(row["Id"].ToString()),
                     row["Tema"].ToString(),
-                    row["Descripcion"].ToString());
+                    row["Descripcion"].ToString(),
+                    bool.Parse(row["Selected"].ToString()));
                 unidades.Add(docente);
             }
             return unidades;
         }
-    
+
+        public int Update(Unidad entity)
+        {
+
+            DAO mDao = new DAO();
+            var commandText = "UPDATE  Unidades SET Selected = '" + entity.Selected + "' WHERE ID = '" + entity.Id + "'";
+
+
+            return mDao.ExecuteNonQuery(commandText);
+        }
     }
 }
+

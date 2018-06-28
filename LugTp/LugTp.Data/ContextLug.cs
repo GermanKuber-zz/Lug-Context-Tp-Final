@@ -104,6 +104,11 @@ namespace LugTp.Data
                 });
             Docentes.Execute();
             Cursos.Execute();
+            Cursos?.ToList()
+                   .ForEach(x =>
+                   {
+                       x?.Unidades?.Execute();
+                   });
         }
     }
 }
