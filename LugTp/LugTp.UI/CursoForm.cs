@@ -12,6 +12,7 @@ namespace LugTp.UI
         private List<Docente> _docentes;
         private List<Curso> _cursos;
         private List<Unidad> _unidades;
+        private Curso _currentCurso;
 
         public CursoForm()
         {
@@ -145,12 +146,28 @@ namespace LugTp.UI
         {
             if (grvDocentes.SelectedRows.Count > 0)
             {
+                _currentCurso = _cursos.FirstOrDefault(x =>
+                  x.Id == int.Parse(grvDocentes.SelectedRows[0].Cells["Id"].Value.ToString()));
+                btnEliminar.Enabled = true;
                 txtNombre.Text = grvDocentes.SelectedRows[0].Cells["Nombre"].Value.ToString();
                 txtDuracion.Text = grvDocentes.SelectedRows[0].Cells["Duracion"].Value.ToString();
                 var docente = grvDocentes.SelectedRows[0].Cells["Docente"].Value.ToString();
                 cmbDocente.SelectedItem = docente;
                 btnEliminar.Enabled = true;
                 btnActualizar.Enabled = true;
+                chkCursos.Items.Clear();
+                var index = 0;
+                _unidades?.ForEach(unidad =>
+                {
+                    chkCursos.Items.Add(Name = unidad.Tema);
+
+                    if (_currentCurso.Unidades.Any(x => x.Tema == unidad.Tema))
+                    {
+                        chkCursos.SetItemChecked(index, true);
+                    }
+                    ++index;
+                });
+
             }
             else
             {
