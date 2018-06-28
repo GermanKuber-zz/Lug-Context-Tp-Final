@@ -164,6 +164,7 @@
             this.grvDocentes.Name = "grvDocentes";
             this.grvDocentes.Size = new System.Drawing.Size(776, 238);
             this.grvDocentes.TabIndex = 0;
+            this.grvDocentes.SelectionChanged += new System.EventHandler(this.grvDocentes_SelectionChanged);
             // 
             // CursoForm
             // 

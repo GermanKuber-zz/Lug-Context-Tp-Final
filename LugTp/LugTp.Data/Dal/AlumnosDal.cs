@@ -32,11 +32,19 @@ namespace LugTp.Data.Dal
                         {
                             if (!string.IsNullOrWhiteSpace(x["Curso_Id"].ToString()))
                             {
-                                var curso = new Curso(int.Parse(x["Curso_Id"].ToString()),
+                                try
+                                {
+                                    var curso = new Curso(int.Parse(x["Curso_Id"].ToString()),
                                         x["Curso_Nombre"].ToString(),
                                         int.Parse(x["Duracion"].ToString()),
                                         null);
-                                listOfCursos.Add(curso);
+                                    listOfCursos.Add(curso);
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e);
+                                }
+                               
                             }
                         });
 
